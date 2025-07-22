@@ -23,7 +23,8 @@ const Index = () => {
       image: sonaliChick,
       features: ["Excellent egg layers", "Good meat quality", "Hardy breed"],
       popular: false,
-      gradient: "gradient-sunset"
+      gradientClass: "bg-gradient-sunset",
+      buttonClass: "bg-gradient-sunset hover:opacity-90"
     },
     {
       id: 2,
@@ -34,7 +35,8 @@ const Index = () => {
       image: peruvidaiChick,
       features: ["Fast growth", "Superior meat", "Disease resistant"],
       popular: true,
-      gradient: "gradient-golden"
+      gradientClass: "bg-gradient-golden",
+      buttonClass: "bg-gradient-golden hover:opacity-90"
     },
     {
       id: 3,
@@ -45,7 +47,8 @@ const Index = () => {
       image: kadaknathChick,
       features: ["High protein", "Medicinal properties", "Unique black meat"],
       popular: false,
-      gradient: "gradient-forest"
+      gradientClass: "bg-gradient-forest",
+      buttonClass: "bg-gradient-forest hover:opacity-90"
     },
     {
       id: 4,
@@ -56,7 +59,8 @@ const Index = () => {
       image: guineafowlChick,
       features: ["Natural pest control", "Lean meat", "Low maintenance"],
       popular: false,
-      gradient: "gradient-rainbow"
+      gradientClass: "bg-gradient-rainbow",
+      buttonClass: "bg-gradient-rainbow hover:opacity-90"
     },
     {
       id: 5,
@@ -67,7 +71,8 @@ const Index = () => {
       image: aseelChick,
       features: ["Traditional taste", "High nutrition", "Free range suitable"],
       popular: false,
-      gradient: "gradient-barn"
+      gradientClass: "bg-gradient-barn",
+      buttonClass: "bg-gradient-barn hover:opacity-90"
     },
     {
       id: 6,
@@ -78,7 +83,8 @@ const Index = () => {
       image: fancyChick,
       features: ["Beautiful appearance", "Good for shows", "Backyard friendly"],
       popular: false,
-      gradient: "gradient-rainbow"
+      gradientClass: "bg-gradient-rainbow",
+      buttonClass: "bg-gradient-rainbow hover:opacity-90"
     },
     {
       id: 7,
@@ -89,7 +95,8 @@ const Index = () => {
       image: girirajaChick,
       features: ["Rural suitable", "Multi-colored", "Good for beginners"],
       popular: false,
-      gradient: "gradient-sunset"
+      gradientClass: "bg-gradient-sunset",
+      buttonClass: "bg-gradient-sunset hover:opacity-90"
     },
     {
       id: 8,
@@ -100,7 +107,8 @@ const Index = () => {
       image: turkeyChick,
       features: ["Large size", "Festive occasions", "High demand"],
       popular: false,
-      gradient: "gradient-forest"
+      gradientClass: "bg-gradient-forest",
+      buttonClass: "bg-gradient-forest hover:opacity-90"
     },
     {
       id: 9,
@@ -111,7 +119,8 @@ const Index = () => {
       image: duckChick,
       features: ["Water birds", "Good egg layers", "Dual purpose"],
       popular: false,
-      gradient: "gradient-golden"
+      gradientClass: "bg-gradient-golden",
+      buttonClass: "bg-gradient-golden hover:opacity-90"
     }
   ];
 
@@ -174,7 +183,7 @@ const Index = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {poultryProducts.map((breed, index) => (
-              <Card key={`1day-${breed.id}`} className={`hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-${breed.gradient}/10`} style={{animationDelay: `${index * 0.1}s`}}>
+              <Card key={`1day-${breed.id}`} className="hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-accent/5" style={{animationDelay: `${index * 0.1}s`}}>
                 {breed.popular && (
                   <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
                     ⭐ Popular
@@ -182,31 +191,31 @@ const Index = () => {
                 )}
                 
                 <CardHeader className="pb-3 p-4">
-                  <div className={`aspect-square rounded-lg overflow-hidden mb-3 bg-${breed.gradient}/20 ring-2 ring-accent-bright/30 shadow-warm`}>
+                  <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
                       src={breed.image} 
                       alt={breed.name}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <CardTitle className={`text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center`}>
+                  <CardTitle className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center">
                     {breed.name}
                   </CardTitle>
-                  <CardDescription className={`text-sm font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2 text-center`}>
+                  <CardDescription className="text-sm font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2 text-center">
                     {breed.tamilName}
                   </CardDescription>
                 </CardHeader>
 
                 <CardContent className="pb-3 px-4">
-                  <div className={`text-center p-3 rounded-lg bg-${breed.gradient}/10 border border-accent/20 mb-3`}>
-                    <span className={`text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent`}>₹{breed.prices.oneDay}</span>
+                  <div className="text-center p-3 rounded-lg bg-accent/5 border border-accent/20 mb-3">
+                    <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">₹{breed.prices.oneDay}</span>
                     <p className="text-xs text-muted-foreground mt-1">per chick</p>
                   </div>
                 </CardContent>
 
                 <CardFooter className="pt-0 px-4">
                   <Button 
-                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : `bg-${breed.gradient} hover:opacity-90`}`}
+                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
                     size="sm"
                   >
                     Order Now
@@ -230,7 +239,7 @@ const Index = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {poultryProducts.map((breed, index) => (
-              <Card key={`1month-${breed.id}`} className={`hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-${breed.gradient}/10`} style={{animationDelay: `${index * 0.1}s`}}>
+              <Card key={`1month-${breed.id}`} className="hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-accent/5" style={{animationDelay: `${index * 0.1}s`}}>
                 {breed.popular && (
                   <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
                     ⭐ Popular
@@ -238,31 +247,31 @@ const Index = () => {
                 )}
                 
                 <CardHeader className="pb-3 p-4">
-                  <div className={`aspect-square rounded-lg overflow-hidden mb-3 bg-${breed.gradient}/20 ring-2 ring-accent-bright/30 shadow-warm`}>
+                  <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
                       src={breed.image} 
                       alt={breed.name}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <CardTitle className={`text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center`}>
+                  <CardTitle className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center">
                     {breed.name}
                   </CardTitle>
-                  <CardDescription className={`text-sm font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2 text-center`}>
+                  <CardDescription className="text-sm font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2 text-center">
                     {breed.tamilName}
                   </CardDescription>
                 </CardHeader>
 
                 <CardContent className="pb-3 px-4">
-                  <div className={`text-center p-3 rounded-lg bg-${breed.gradient}/10 border border-accent/20 mb-3`}>
-                    <span className={`text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent`}>₹{breed.prices.oneMonth}</span>
+                  <div className="text-center p-3 rounded-lg bg-accent/5 border border-accent/20 mb-3">
+                    <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">₹{breed.prices.oneMonth}</span>
                     <p className="text-xs text-muted-foreground mt-1">per chick</p>
                   </div>
                 </CardContent>
 
                 <CardFooter className="pt-0 px-4">
                   <Button 
-                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : `bg-${breed.gradient} hover:opacity-90`}`}
+                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
                     size="sm"
                   >
                     Order Now
@@ -286,7 +295,7 @@ const Index = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {poultryProducts.map((breed, index) => (
-              <Card key={`1.5month-${breed.id}`} className={`hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-${breed.gradient}/10`} style={{animationDelay: `${index * 0.1}s`}}>
+              <Card key={`1.5month-${breed.id}`} className="hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-accent/5" style={{animationDelay: `${index * 0.1}s`}}>
                 {breed.popular && (
                   <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
                     ⭐ Popular
@@ -294,31 +303,31 @@ const Index = () => {
                 )}
                 
                 <CardHeader className="pb-3 p-4">
-                  <div className={`aspect-square rounded-lg overflow-hidden mb-3 bg-${breed.gradient}/20 ring-2 ring-accent-bright/30 shadow-warm`}>
+                  <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
                       src={breed.image} 
                       alt={breed.name}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <CardTitle className={`text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center`}>
+                  <CardTitle className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center">
                     {breed.name}
                   </CardTitle>
-                  <CardDescription className={`text-sm font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2 text-center`}>
+                  <CardDescription className="text-sm font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2 text-center">
                     {breed.tamilName}
                   </CardDescription>
                 </CardHeader>
 
                 <CardContent className="pb-3 px-4">
-                  <div className={`text-center p-3 rounded-lg bg-${breed.gradient}/10 border border-accent/20 mb-3`}>
-                    <span className={`text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent`}>₹{breed.prices.oneAndHalfMonth}</span>
+                  <div className="text-center p-3 rounded-lg bg-accent/5 border border-accent/20 mb-3">
+                    <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">₹{breed.prices.oneAndHalfMonth}</span>
                     <p className="text-xs text-muted-foreground mt-1">per chick</p>
                   </div>
                 </CardContent>
 
                 <CardFooter className="pt-0 px-4">
                   <Button 
-                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : `bg-${breed.gradient} hover:opacity-90`}`}
+                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
                     size="sm"
                   >
                     Order Now
@@ -384,11 +393,11 @@ const Index = () => {
 
           <div className="text-center mt-8">
             <div className="inline-flex items-center space-x-4 p-4 bg-card/70 rounded-xl shadow-warm">
-              <span className="text-green-500 text-2xl">✅</span>
+              <span className="text-success text-2xl">✅</span>
               <span className="text-foreground font-semibold">Secure Payments</span>
-              <span className="text-green-500 text-2xl">✅</span>
+              <span className="text-success text-2xl">✅</span>
               <span className="text-foreground font-semibold">Fast Processing</span>
-              <span className="text-green-500 text-2xl">✅</span>
+              <span className="text-success text-2xl">✅</span>
               <span className="text-foreground font-semibold">Money Back Guarantee</span>
             </div>
           </div>
@@ -564,19 +573,19 @@ const Index = () => {
                 </h4>
                 <div className="text-left space-y-3 text-muted-foreground">
                   <p className="flex items-start">
-                    <span className="text-green-500 mr-2 mt-1">✓</span>
+                    <span className="text-success mr-2 mt-1">✓</span>
                     Please mention your order details in the transfer reference
                   </p>
                   <p className="flex items-start">
-                    <span className="text-green-500 mr-2 mt-1">✓</span>
+                    <span className="text-success mr-2 mt-1">✓</span>
                     Send payment confirmation screenshot to our WhatsApp/Phone
                   </p>
                   <p className="flex items-start">
-                    <span className="text-green-500 mr-2 mt-1">✓</span>
+                    <span className="text-success mr-2 mt-1">✓</span>
                     Delivery will be processed after payment confirmation
                   </p>
                   <p className="flex items-start">
-                    <span className="text-blue-500 mr-2 mt-1">📞</span>
+                    <span className="text-info mr-2 mt-1">📞</span>
                     Call 9500790276 or 9994931708 for any payment queries
                   </p>
                 </div>
