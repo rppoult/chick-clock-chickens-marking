@@ -363,6 +363,14 @@ const Index = () => {
               </div>
               <h4 className="text-lg font-semibold text-foreground mb-2">Bank Transfer</h4>
               <p className="text-sm text-muted-foreground">Direct bank account transfer</p>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="mt-3 text-xs"
+                onClick={() => document.getElementById('bank-details')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                View Bank Details
+              </Button>
             </div>
 
             <div className="text-center p-6 bg-card/50 rounded-xl shadow-warm hover:shadow-glow transition-all duration-300">
@@ -485,6 +493,95 @@ const Index = () => {
             <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
               📘 Facebook Page
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Bank Details Section */}
+      <section id="bank-details" className="py-20 px-6 bg-gradient-to-r from-secondary/40 to-accent/20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-6">
+              🏦 Bank Account Details
+            </h3>
+            <p className="text-xl text-muted-foreground mb-8">
+              For direct bank transfer payments, use the following account details:
+            </p>
+          </div>
+
+          <div className="bg-card/70 rounded-2xl p-8 shadow-colorful border-2 border-accent/20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div className="bg-gradient-barn/10 p-4 rounded-xl border border-accent/30">
+                  <h4 className="text-lg font-bold text-foreground mb-2 flex items-center">
+                    <span className="text-2xl mr-3">🏦</span>
+                    Bank Name
+                  </h4>
+                  <p className="text-xl font-semibold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent">
+                    IDBI Bank
+                  </p>
+                </div>
+
+                <div className="bg-gradient-golden/10 p-4 rounded-xl border border-accent/30">
+                  <h4 className="text-lg font-bold text-foreground mb-2 flex items-center">
+                    <span className="text-2xl mr-3">👤</span>
+                    Account Holder Name
+                  </h4>
+                  <p className="text-xl font-semibold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent">
+                    RP POULTRY FARM AND TRADERS
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="bg-gradient-barn/10 p-4 rounded-xl border border-accent/30">
+                  <h4 className="text-lg font-bold text-foreground mb-2 flex items-center">
+                    <span className="text-2xl mr-3">💳</span>
+                    Account Number
+                  </h4>
+                  <p className="text-xl font-semibold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent font-mono">
+                    0368102000016621
+                  </p>
+                </div>
+
+                <div className="bg-gradient-golden/10 p-4 rounded-xl border border-accent/30">
+                  <h4 className="text-lg font-bold text-foreground mb-2 flex items-center">
+                    <span className="text-2xl mr-3">🔢</span>
+                    IFSC Code
+                  </h4>
+                  <p className="text-xl font-semibold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent font-mono">
+                    IBKL0000368
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 text-center">
+              <div className="bg-gradient-to-r from-accent/20 to-primary/20 p-6 rounded-xl border-2 border-accent/30">
+                <h4 className="text-lg font-bold text-foreground mb-4 flex items-center justify-center">
+                  <span className="text-2xl mr-3">⚠️</span>
+                  Important Payment Instructions
+                </h4>
+                <div className="text-left space-y-3 text-muted-foreground">
+                  <p className="flex items-start">
+                    <span className="text-green-500 mr-2 mt-1">✓</span>
+                    Please mention your order details in the transfer reference
+                  </p>
+                  <p className="flex items-start">
+                    <span className="text-green-500 mr-2 mt-1">✓</span>
+                    Send payment confirmation screenshot to our WhatsApp/Phone
+                  </p>
+                  <p className="flex items-start">
+                    <span className="text-green-500 mr-2 mt-1">✓</span>
+                    Delivery will be processed after payment confirmation
+                  </p>
+                  <p className="flex items-start">
+                    <span className="text-blue-500 mr-2 mt-1">📞</span>
+                    Call 9500790276 or 9994931708 for any payment queries
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
