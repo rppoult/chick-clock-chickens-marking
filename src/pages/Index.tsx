@@ -150,81 +150,240 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Products Section */}
+      {/* Age-Based Categories Section */}
       <section className="py-20 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Our Premium Poultry Breeds
+            Shop By Age Category
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Choose from our diverse selection of poultry breeds. All prices are age-based from day-old to 1.5 months.
+            Choose from our age-based categories. Each age offers different benefits for your farming needs.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {poultryProducts.map((breed, index) => (
-            <Card key={breed.id} className={`relative hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-${breed.gradient}/10`} style={{animationDelay: `${index * 0.1}s`}}>
-              {breed.popular && (
-                <Badge className="absolute -top-3 left-4 bg-gradient-rainbow z-10 shadow-glow pulse-glow text-white font-bold">
-                  ⭐ Most Popular ⭐
-                </Badge>
-              )}
-              
-              <CardHeader className="pb-4">
-                <div className={`aspect-square rounded-xl overflow-hidden mb-4 bg-${breed.gradient}/20 ring-2 ring-accent-bright/30 shadow-warm`}>
-                  <img 
-                    src={breed.image} 
-                    alt={breed.name}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <CardTitle className={`text-xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent`}>
-                  {breed.name}
-                </CardTitle>
-                <CardDescription className={`text-lg font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2`}>
-                  {breed.tamilName}
-                </CardDescription>
-                <CardDescription className="text-muted-foreground leading-relaxed">
-                  {breed.description}
-                </CardDescription>
-              </CardHeader>
-
-              <CardContent className="pb-4">
-                <div className={`space-y-3 mb-4 p-4 rounded-lg bg-${breed.gradient}/5 border border-accent/20`}>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium text-foreground">ஒரு நாள் (1 Day)</span>
-                    <span className={`text-lg font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent`}>₹{breed.prices.oneDay}</span>
+        {/* 1-Day Old Chicks */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
+              🐣 1-Day Old Chicks (ஒரு நாள்)
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Perfect for raising from the beginning. Most affordable option with full control over feeding and care.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {poultryProducts.map((breed, index) => (
+              <Card key={`1day-${breed.id}`} className={`hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-${breed.gradient}/10`} style={{animationDelay: `${index * 0.1}s`}}>
+                {breed.popular && (
+                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
+                    ⭐ Popular
+                  </Badge>
+                )}
+                
+                <CardHeader className="pb-3 p-4">
+                  <div className={`aspect-square rounded-lg overflow-hidden mb-3 bg-${breed.gradient}/20 ring-2 ring-accent-bright/30 shadow-warm`}>
+                    <img 
+                      src={breed.image} 
+                      alt={breed.name}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium text-foreground">ஒரு மாதம் (1 Month)</span>
-                    <span className={`text-lg font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent`}>₹{breed.prices.oneMonth}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium text-foreground">ஒன்றை மாதம் (1.5 Months)</span>
-                    <span className={`text-lg font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent`}>₹{breed.prices.oneAndHalfMonth}</span>
-                  </div>
-                </div>
+                  <CardTitle className={`text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center`}>
+                    {breed.name}
+                  </CardTitle>
+                  <CardDescription className={`text-sm font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2 text-center`}>
+                    {breed.tamilName}
+                  </CardDescription>
+                </CardHeader>
 
-                <div className="space-y-3">
-                  {breed.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">
-                      <div className={`w-3 h-3 bg-gradient-to-r from-accent to-accent-bright rounded-full mr-3 animate-pulse`}></div>
-                      {feature}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
+                <CardContent className="pb-3 px-4">
+                  <div className={`text-center p-3 rounded-lg bg-${breed.gradient}/10 border border-accent/20 mb-3`}>
+                    <span className={`text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent`}>₹{breed.prices.oneDay}</span>
+                    <p className="text-xs text-muted-foreground mt-1">per chick</p>
+                  </div>
+                </CardContent>
 
-              <CardFooter className="pt-0">
-                <Button 
-                  className={`w-full font-semibold text-base shadow-warm hover:shadow-glow transition-all duration-300 ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : `bg-${breed.gradient} hover:opacity-90`}`}
-                  variant={breed.popular ? "default" : "default"}
-                >
-                  {breed.popular ? "🌟 Contact for Order 🌟" : "Contact for Order"}
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+                <CardFooter className="pt-0 px-4">
+                  <Button 
+                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : `bg-${breed.gradient} hover:opacity-90`}`}
+                    size="sm"
+                  >
+                    Order Now
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* 1-Month Old Chicks */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
+              🐤 1-Month Old Chicks (ஒரு மாதம்)
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Hardy and established birds with higher survival rate. Perfect for intermediate farmers.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {poultryProducts.map((breed, index) => (
+              <Card key={`1month-${breed.id}`} className={`hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-${breed.gradient}/10`} style={{animationDelay: `${index * 0.1}s`}}>
+                {breed.popular && (
+                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
+                    ⭐ Popular
+                  </Badge>
+                )}
+                
+                <CardHeader className="pb-3 p-4">
+                  <div className={`aspect-square rounded-lg overflow-hidden mb-3 bg-${breed.gradient}/20 ring-2 ring-accent-bright/30 shadow-warm`}>
+                    <img 
+                      src={breed.image} 
+                      alt={breed.name}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <CardTitle className={`text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center`}>
+                    {breed.name}
+                  </CardTitle>
+                  <CardDescription className={`text-sm font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2 text-center`}>
+                    {breed.tamilName}
+                  </CardDescription>
+                </CardHeader>
+
+                <CardContent className="pb-3 px-4">
+                  <div className={`text-center p-3 rounded-lg bg-${breed.gradient}/10 border border-accent/20 mb-3`}>
+                    <span className={`text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent`}>₹{breed.prices.oneMonth}</span>
+                    <p className="text-xs text-muted-foreground mt-1">per chick</p>
+                  </div>
+                </CardContent>
+
+                <CardFooter className="pt-0 px-4">
+                  <Button 
+                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : `bg-${breed.gradient} hover:opacity-90`}`}
+                    size="sm"
+                  >
+                    Order Now
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* 1.5-Month Old Chicks */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
+              🐥 1.5-Month Old Chicks (ஒன்றை மாதம்)
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Mature and robust birds ready for production. Highest survival rate and immediate results.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {poultryProducts.map((breed, index) => (
+              <Card key={`1.5month-${breed.id}`} className={`hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-${breed.gradient}/10`} style={{animationDelay: `${index * 0.1}s`}}>
+                {breed.popular && (
+                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
+                    ⭐ Popular
+                  </Badge>
+                )}
+                
+                <CardHeader className="pb-3 p-4">
+                  <div className={`aspect-square rounded-lg overflow-hidden mb-3 bg-${breed.gradient}/20 ring-2 ring-accent-bright/30 shadow-warm`}>
+                    <img 
+                      src={breed.image} 
+                      alt={breed.name}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <CardTitle className={`text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center`}>
+                    {breed.name}
+                  </CardTitle>
+                  <CardDescription className={`text-sm font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2 text-center`}>
+                    {breed.tamilName}
+                  </CardDescription>
+                </CardHeader>
+
+                <CardContent className="pb-3 px-4">
+                  <div className={`text-center p-3 rounded-lg bg-${breed.gradient}/10 border border-accent/20 mb-3`}>
+                    <span className={`text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent`}>₹{breed.prices.oneAndHalfMonth}</span>
+                    <p className="text-xs text-muted-foreground mt-1">per chick</p>
+                  </div>
+                </CardContent>
+
+                <CardFooter className="pt-0 px-4">
+                  <Button 
+                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : `bg-${breed.gradient} hover:opacity-90`}`}
+                    size="sm"
+                  >
+                    Order Now
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Payment Options Section */}
+        <div className="bg-gradient-to-r from-secondary/20 to-accent/10 rounded-3xl p-8 shadow-colorful">
+          <div className="text-center mb-8">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
+              💳 Payment Options
+            </h3>
+            <p className="text-lg text-muted-foreground">
+              We accept multiple payment methods for your convenience
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="text-center p-6 bg-card/50 rounded-xl shadow-warm hover:shadow-glow transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-barn rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-2xl">💵</span>
+              </div>
+              <h4 className="text-lg font-semibold text-foreground mb-2">Cash on Delivery</h4>
+              <p className="text-sm text-muted-foreground">Pay when you receive your chicks</p>
+            </div>
+
+            <div className="text-center p-6 bg-card/50 rounded-xl shadow-warm hover:shadow-glow transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-golden rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-2xl">📱</span>
+              </div>
+              <h4 className="text-lg font-semibold text-foreground mb-2">UPI Payment</h4>
+              <p className="text-sm text-muted-foreground">Google Pay, PhonePe, Paytm</p>
+            </div>
+
+            <div className="text-center p-6 bg-card/50 rounded-xl shadow-warm hover:shadow-glow transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-barn rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-2xl">🏦</span>
+              </div>
+              <h4 className="text-lg font-semibold text-foreground mb-2">Bank Transfer</h4>
+              <p className="text-sm text-muted-foreground">Direct bank account transfer</p>
+            </div>
+
+            <div className="text-center p-6 bg-card/50 rounded-xl shadow-warm hover:shadow-glow transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-golden rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-2xl">💳</span>
+              </div>
+              <h4 className="text-lg font-semibold text-foreground mb-2">Card Payment</h4>
+              <p className="text-sm text-muted-foreground">Debit & Credit cards accepted</p>
+            </div>
+          </div>
+
+          <div className="text-center mt-8">
+            <div className="inline-flex items-center space-x-4 p-4 bg-card/70 rounded-xl shadow-warm">
+              <span className="text-green-500 text-2xl">✅</span>
+              <span className="text-foreground font-semibold">Secure Payments</span>
+              <span className="text-green-500 text-2xl">✅</span>
+              <span className="text-foreground font-semibold">Fast Processing</span>
+              <span className="text-green-500 text-2xl">✅</span>
+              <span className="text-foreground font-semibold">Money Back Guarantee</span>
+            </div>
+          </div>
         </div>
       </section>
 
