@@ -228,12 +228,21 @@ const Index = () => {
                 </CardContent>
 
                 <CardFooter className="pt-0 px-4">
-                  <Button 
-                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
-                    size="sm"
+                  <Link 
+                    to="/payment" 
+                    state={{ 
+                      breed: breed.name, 
+                      ageCategory: "1-day",
+                      price: breed.prices.oneDay 
+                    }}
                   >
-                    Order Now
-                  </Button>
+                    <Button 
+                      className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
+                      size="sm"
+                    >
+                      Order Now
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}
@@ -284,12 +293,21 @@ const Index = () => {
                 </CardContent>
 
                 <CardFooter className="pt-0 px-4">
-                  <Button 
-                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
-                    size="sm"
+                  <Link 
+                    to="/payment" 
+                    state={{ 
+                      breed: breed.name, 
+                      ageCategory: "1-month",
+                      price: breed.prices.oneMonth 
+                    }}
                   >
-                    Order Now
-                  </Button>
+                    <Button 
+                      className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
+                      size="sm"
+                    >
+                      Order Now
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}
@@ -340,12 +358,21 @@ const Index = () => {
                 </CardContent>
 
                 <CardFooter className="pt-0 px-4">
-                  <Button 
-                    className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
-                    size="sm"
+                  <Link 
+                    to="/payment" 
+                    state={{ 
+                      breed: breed.name, 
+                      ageCategory: "1.5-month",
+                      price: breed.prices.oneAndHalfMonth 
+                    }}
                   >
-                    Order Now
-                  </Button>
+                    <Button 
+                      className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
+                      size="sm"
+                    >
+                      Order Now
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}
