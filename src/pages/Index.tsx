@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 import farmHero from "@/assets/farm-hero.jpg";
 import sonaliChick from "@/assets/sonali-chick.jpg";
 import peruvidaiChick from "@/assets/peruvidai-chick.jpg";
@@ -126,6 +127,19 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-warm">
+      {/* Navigation Header */}
+      <div className="bg-white shadow-sm border-b sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-orange-800">RP POULTRY FARM & TRADERS</h1>
+            <nav className="hidden md:flex gap-6">
+              <Link to="/about" className="text-orange-600 hover:text-orange-800 font-medium transition-colors">About Us</Link>
+              <Link to="/contact" className="text-orange-600 hover:text-orange-800 font-medium transition-colors">Contact</Link>
+            </nav>
+          </div>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <div 
