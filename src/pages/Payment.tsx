@@ -33,9 +33,9 @@ const Payment = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100">
+    <div className="min-h-screen bg-gradient-warm">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-card shadow-sm border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/">
@@ -44,7 +44,7 @@ const Payment = () => {
                 Back to Home
               </Button>
             </Link>
-            <h1 className="text-2xl font-bold text-orange-800">Complete Your Order</h1>
+            <h1 className="text-2xl font-bold text-foreground">Complete Your Order</h1>
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@ const Payment = () => {
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl text-orange-800">Order Information</CardTitle>
+                <CardTitle className="text-xl text-primary">Order Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -64,7 +64,7 @@ const Payment = () => {
                     type="text" 
                     value={orderDetails.name}
                     onChange={(e) => setOrderDetails({...orderDetails, name: e.target.value})}
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                     placeholder="Enter your full name"
                     required
                   />
@@ -76,7 +76,7 @@ const Payment = () => {
                     type="tel" 
                     value={orderDetails.phone}
                     onChange={(e) => setOrderDetails({...orderDetails, phone: e.target.value})}
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                     placeholder="Enter your phone number"
                     required
                   />
@@ -88,7 +88,7 @@ const Payment = () => {
                     value={orderDetails.address}
                     onChange={(e) => setOrderDetails({...orderDetails, address: e.target.value})}
                     rows={3}
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                     placeholder="Enter your complete delivery address"
                     required
                   ></textarea>
@@ -101,7 +101,7 @@ const Payment = () => {
                       type="text" 
                       value={orderDetails.breed}
                       onChange={(e) => setOrderDetails({...orderDetails, breed: e.target.value})}
-                      className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                       placeholder="Select breed"
                     />
                   </div>
@@ -111,11 +111,12 @@ const Payment = () => {
                     <select 
                       value={orderDetails.ageCategory}
                       onChange={(e) => setOrderDetails({...orderDetails, ageCategory: e.target.value})}
-                      className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                     >
                       <option value="1-day">1 Day Old</option>
                       <option value="1-month">1 Month Old</option>
                       <option value="1.5-month">1.5 Month Old</option>
+                      <option value="2-month">2 Month Old</option>
                     </select>
                   </div>
                 </div>
@@ -128,7 +129,7 @@ const Payment = () => {
                       min="1"
                       value={orderDetails.quantity}
                       onChange={(e) => setOrderDetails({...orderDetails, quantity: parseInt(e.target.value) || 1})}
-                      className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                     />
                   </div>
                   
@@ -138,7 +139,7 @@ const Payment = () => {
                       type="number" 
                       value={orderDetails.price}
                       onChange={(e) => setOrderDetails({...orderDetails, price: parseInt(e.target.value) || 0})}
-                      className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                       placeholder="₹ Price"
                     />
                   </div>
@@ -151,65 +152,65 @@ const Payment = () => {
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl text-orange-800">Payment Method</CardTitle>
+                <CardTitle className="text-xl text-primary">Payment Method</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div 
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                    selectedPayment === 'cod' ? 'border-orange-500 bg-orange-50' : 'border-gray-300'
+                    selectedPayment === 'cod' ? 'border-primary bg-primary/5' : 'border-border'
                   }`}
                   onClick={() => setSelectedPayment('cod')}
                 >
                   <div className="flex items-center gap-3">
-                    <Truck className="h-5 w-5 text-orange-600" />
+                    <Truck className="h-5 w-5 text-primary" />
                     <div>
                       <h3 className="font-semibold">Cash on Delivery</h3>
-                      <p className="text-sm text-gray-600">Pay when you receive your order</p>
+                      <p className="text-sm text-muted-foreground">Pay when you receive your order</p>
                     </div>
                   </div>
                 </div>
 
                 <div 
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                    selectedPayment === 'upi' ? 'border-orange-500 bg-orange-50' : 'border-gray-300'
+                    selectedPayment === 'upi' ? 'border-primary bg-primary/5' : 'border-border'
                   }`}
                   onClick={() => setSelectedPayment('upi')}
                 >
                   <div className="flex items-center gap-3">
-                    <Smartphone className="h-5 w-5 text-orange-600" />
+                    <Smartphone className="h-5 w-5 text-primary" />
                     <div>
                       <h3 className="font-semibold">UPI Payment</h3>
-                      <p className="text-sm text-gray-600">Pay using UPI apps like PhonePe, Google Pay</p>
+                      <p className="text-sm text-muted-foreground">Pay using UPI apps like PhonePe, Google Pay</p>
                     </div>
                   </div>
                 </div>
 
                 <div 
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                    selectedPayment === 'bank' ? 'border-orange-500 bg-orange-50' : 'border-gray-300'
+                    selectedPayment === 'bank' ? 'border-primary bg-primary/5' : 'border-border'
                   }`}
                   onClick={() => setSelectedPayment('bank')}
                 >
                   <div className="flex items-center gap-3">
-                    <Building2 className="h-5 w-5 text-orange-600" />
+                    <Building2 className="h-5 w-5 text-primary" />
                     <div>
                       <h3 className="font-semibold">Bank Transfer</h3>
-                      <p className="text-sm text-gray-600">Direct bank transfer to our account</p>
+                      <p className="text-sm text-muted-foreground">Direct bank transfer to our account</p>
                     </div>
                   </div>
                 </div>
 
                 <div 
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                    selectedPayment === 'card' ? 'border-orange-500 bg-orange-50' : 'border-gray-300'
+                    selectedPayment === 'card' ? 'border-primary bg-primary/5' : 'border-border'
                   }`}
                   onClick={() => setSelectedPayment('card')}
                 >
                   <div className="flex items-center gap-3">
-                    <CreditCard className="h-5 w-5 text-orange-600" />
+                    <CreditCard className="h-5 w-5 text-primary" />
                     <div>
                       <h3 className="font-semibold">Card Payment</h3>
-                      <p className="text-sm text-gray-600">Pay using Credit/Debit card</p>
+                      <p className="text-sm text-muted-foreground">Pay using Credit/Debit card</p>
                     </div>
                   </div>
                 </div>
@@ -219,7 +220,7 @@ const Payment = () => {
             {/* Order Summary */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl text-orange-800">Order Summary</CardTitle>
+                <CardTitle className="text-xl text-primary">Order Summary</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -242,13 +243,13 @@ const Payment = () => {
                   <hr />
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total Amount:</span>
-                    <span className="text-orange-600">₹{calculateTotal()}</span>
+                    <span className="text-primary">₹{calculateTotal()}</span>
                   </div>
                 </div>
                 
                 <Button 
                   onClick={handleSubmitOrder}
-                  className="w-full mt-6 bg-orange-600 hover:bg-orange-700"
+                  className="w-full mt-6"
                   disabled={!selectedPayment}
                 >
                   Place Order
@@ -260,16 +261,16 @@ const Payment = () => {
             {selectedPayment === 'bank' && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg text-orange-800">Bank Transfer Details</CardTitle>
+                  <CardTitle className="text-lg text-primary">Bank Transfer Details</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="bg-orange-50 p-4 rounded-lg space-y-2">
+                  <div className="bg-primary/5 p-4 rounded-lg space-y-2">
                     <div><strong>Account Number:</strong> 0368102000016621</div>
                     <div><strong>Bank Name:</strong> IDBI Bank</div>
                     <div><strong>Account Holder:</strong> RP POULTRY FARM AND TRADERS</div>
                     <div><strong>IFSC Code:</strong> IBKL0000368</div>
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-muted-foreground">
                     After making the payment, please share the transaction details with us via WhatsApp or call.
                   </p>
                 </CardContent>

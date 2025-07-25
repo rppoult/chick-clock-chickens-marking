@@ -140,7 +140,7 @@ const Index = () => {
       <div className="bg-white shadow-sm border-b sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <Link to="/" className="text-2xl font-bold text-orange-800 hover:text-orange-900 transition-colors">
+            <Link to="/" className="text-2xl font-bold text-primary hover:text-primary-glow transition-colors">
               RP POULTRY FARM & TRADERS
             </Link>
             

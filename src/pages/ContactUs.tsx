@@ -5,9 +5,9 @@ import { ArrowLeft, Phone, Mail, MapPin, Clock } from "lucide-react";
 
 const ContactUs = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100">
+    <div className="min-h-screen bg-gradient-warm">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-card shadow-sm border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/">
@@ -16,7 +16,7 @@ const ContactUs = () => {
                 Back to Home
               </Button>
             </Link>
-            <h1 className="text-2xl font-bold text-orange-800">RP POULTRY FARM</h1>
+            <h1 className="text-2xl font-bold text-foreground">RP POULTRY FARM</h1>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@ const ContactUs = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-orange-800 mb-4">Contact Us</h1>
+          <h1 className="text-4xl font-bold text-primary mb-4">Contact Us</h1>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
             Get in touch with us for orders, inquiries, or any questions about our poultry products and services.
           </p>
@@ -35,18 +35,18 @@ const ContactUs = () => {
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl text-orange-800 flex items-center gap-2">
+                <CardTitle className="text-xl text-primary flex items-center gap-2">
                   <Phone className="h-5 w-5" />
                   Phone Numbers
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-orange-600 rounded-full"></div>
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
                   <span className="text-lg font-medium">+91 9876543210</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-orange-600 rounded-full"></div>
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
                   <span className="text-lg font-medium">+91 9876543211</span>
                 </div>
                 <p className="text-sm text-gray-600 mt-2">Available for orders and inquiries</p>
@@ -55,7 +55,7 @@ const ContactUs = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl text-orange-800 flex items-center gap-2">
+                <CardTitle className="text-xl text-primary flex items-center gap-2">
                   <Mail className="h-5 w-5" />
                   Email
                 </CardTitle>
@@ -68,7 +68,7 @@ const ContactUs = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl text-orange-800 flex items-center gap-2">
+                <CardTitle className="text-xl text-primary flex items-center gap-2">
                   <MapPin className="h-5 w-5" />
                   Farm Location
                 </CardTitle>
@@ -88,7 +88,7 @@ const ContactUs = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl text-orange-800 flex items-center gap-2">
+                <CardTitle className="text-xl text-primary flex items-center gap-2">
                   <Clock className="h-5 w-5" />
                   Business Hours
                 </CardTitle>
@@ -115,7 +115,7 @@ const ContactUs = () => {
           {/* Contact Form */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl text-orange-800">Send us a Message</CardTitle>
+              <CardTitle className="text-xl text-primary">Send us a Message</CardTitle>
             </CardHeader>
             <CardContent>
               <form className="space-y-4">
@@ -124,7 +124,7 @@ const ContactUs = () => {
                     <label className="block text-sm font-medium mb-2">First Name</label>
                     <input 
                       type="text" 
-                      className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                       placeholder="Enter your first name"
                     />
                   </div>
@@ -132,7 +132,7 @@ const ContactUs = () => {
                     <label className="block text-sm font-medium mb-2">Last Name</label>
                     <input 
                       type="text" 
-                      className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                       placeholder="Enter your last name"
                     />
                   </div>
@@ -142,7 +142,7 @@ const ContactUs = () => {
                   <label className="block text-sm font-medium mb-2">Phone Number</label>
                   <input 
                     type="tel" 
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                     placeholder="Enter your phone number"
                   />
                 </div>
@@ -151,7 +151,7 @@ const ContactUs = () => {
                   <label className="block text-sm font-medium mb-2">Email</label>
                   <input 
                     type="email" 
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -160,7 +160,7 @@ const ContactUs = () => {
                   <label className="block text-sm font-medium mb-2">Subject</label>
                   <input 
                     type="text" 
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                     placeholder="What is this regarding?"
                   />
                 </div>
@@ -169,12 +169,12 @@ const ContactUs = () => {
                   <label className="block text-sm font-medium mb-2">Message</label>
                   <textarea 
                     rows={5}
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                     placeholder="Tell us about your requirements..."
                   ></textarea>
                 </div>
                 
-                <Button className="w-full bg-orange-600 hover:bg-orange-700">
+                <Button className="w-full">
                   Send Message
                 </Button>
               </form>
@@ -185,7 +185,7 @@ const ContactUs = () => {
         {/* Bank Details Reference */}
         <Card className="mt-8">
           <CardHeader>
-            <CardTitle className="text-xl text-orange-800">Payment Information</CardTitle>
+            <CardTitle className="text-xl text-primary">Payment Information</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-gray-700 mb-4">
