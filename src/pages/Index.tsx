@@ -2,6 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { 
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { Menu, Phone, Home, Info, Mail, ShoppingCart } from "lucide-react";
 import farmHero from "@/assets/farm-hero.jpg";
 import sonaliChick from "@/assets/sonali-chick.jpg";
 import peruvidaiChick from "@/assets/peruvidai-chick.jpg";
@@ -131,11 +140,76 @@ const Index = () => {
       <div className="bg-white shadow-sm border-b sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-orange-800">RP POULTRY FARM & TRADERS</h1>
-            <nav className="hidden md:flex gap-6">
-              <Link to="/about" className="text-orange-600 hover:text-orange-800 font-medium transition-colors">About Us</Link>
-              <Link to="/contact" className="text-orange-600 hover:text-orange-800 font-medium transition-colors">Contact</Link>
-            </nav>
+            <Link to="/" className="text-2xl font-bold text-orange-800 hover:text-orange-900 transition-colors">
+              RP POULTRY FARM & TRADERS
+            </Link>
+            
+            {/* Desktop Navigation */}
+            <NavigationMenu className="hidden md:flex">
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link to="/">
+                    <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                      <Home className="w-4 h-4 mr-2" />
+                      Home
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    <Menu className="w-4 h-4 mr-2" />
+                    Products
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid gap-3 p-6 w-[400px]">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <h4 className="text-sm font-medium leading-none">By Age</h4>
+                          <p className="text-sm text-muted-foreground">Choose by age category</p>
+                        </div>
+                        <div className="space-y-2">
+                          <h4 className="text-sm font-medium leading-none">Popular Breeds</h4>
+                          <p className="text-sm text-muted-foreground">Best selling varieties</p>
+                        </div>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link to="/about">
+                    <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                      <Info className="w-4 h-4 mr-2" />
+                      About Us
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link to="/contact">
+                    <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                      <Mail className="w-4 h-4 mr-2" />
+                      Contact
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link to="/payment">
+                    <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+                      <ShoppingCart className="w-4 h-4 mr-2" />
+                      Order Now
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
+            {/* Mobile Menu Button */}
+            <Button variant="outline" size="sm" className="md:hidden">
+              <Menu className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </div>
