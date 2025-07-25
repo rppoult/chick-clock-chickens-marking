@@ -28,7 +28,7 @@ const Index = () => {
       id: 1,
       name: "Sonali",
       tamilName: "சோனாலி",
-      prices: { oneDay: 40, oneMonth: 100, oneAndHalfMonth: 150 },
+      prices: { oneDay: 40, oneMonth: 100, oneAndHalfMonth: 150, twoMonth: 180 },
       description: "High-quality Sonali breed known for excellent egg production and meat quality.",
       image: sonaliChick,
       features: ["Excellent egg layers", "Good meat quality", "Hardy breed"],
@@ -40,7 +40,7 @@ const Index = () => {
       id: 2,
       name: "Peruvidai Cross",
       tamilName: "பெருவெடை கிராஸ்",
-      prices: { oneDay: 50, oneMonth: 100, oneAndHalfMonth: 160 },
+      prices: { oneDay: 50, oneMonth: 100, oneAndHalfMonth: 160, twoMonth: 190 },
       description: "Premium crossbreed with superior growth rate and meat production.",
       image: peruvidaiChick,
       features: ["Fast growth", "Superior meat", "Disease resistant"],
@@ -52,7 +52,7 @@ const Index = () => {
       id: 3,
       name: "Kadaknath",
       tamilName: "கடக்நாத்",
-      prices: { oneDay: 45, oneMonth: 100, oneAndHalfMonth: 150 },
+      prices: { oneDay: 45, oneMonth: 100, oneAndHalfMonth: 150, twoMonth: 180 },
       description: "Famous black chicken breed with high protein content and medicinal properties.",
       image: kadaknathChick,
       features: ["High protein", "Medicinal properties", "Unique black meat"],
@@ -64,7 +64,7 @@ const Index = () => {
       id: 4,
       name: "Guineafowl",
       tamilName: "கினி கோழி",
-      prices: { oneDay: 80, oneMonth: 150, oneAndHalfMonth: 230 },
+      prices: { oneDay: 80, oneMonth: 150, oneAndHalfMonth: 230, twoMonth: 260 },
       description: "Premium Guinea fowl known for pest control and lean meat.",
       image: guineafowlChick,
       features: ["Natural pest control", "Lean meat", "Low maintenance"],
@@ -76,7 +76,7 @@ const Index = () => {
       id: 5,
       name: "Aseel Cross",
       tamilName: "அசல் கிராஸ் நாட்டுக்கோழி",
-      prices: { oneDay: 40, oneMonth: 90, oneAndHalfMonth: 150 },
+      prices: { oneDay: 40, oneMonth: 90, oneAndHalfMonth: 150, twoMonth: 180 },
       description: "Traditional country chicken crossbreed with excellent taste and nutrition.",
       image: aseelChick,
       features: ["Traditional taste", "High nutrition", "Free range suitable"],
@@ -88,7 +88,7 @@ const Index = () => {
       id: 6,
       name: "Fancy",
       tamilName: "பேன்சி",
-      prices: { oneDay: 60, oneMonth: 130, oneAndHalfMonth: 200 },
+      prices: { oneDay: 60, oneMonth: 130, oneAndHalfMonth: 200, twoMonth: 230 },
       description: "Ornamental breed perfect for backyard farming and show purposes.",
       image: fancyChick,
       features: ["Beautiful appearance", "Good for shows", "Backyard friendly"],
@@ -100,7 +100,7 @@ const Index = () => {
       id: 7,
       name: "Giriraja",
       tamilName: "கிரிராஜா",
-      prices: { oneDay: 30, oneMonth: 90, oneAndHalfMonth: 150 },
+      prices: { oneDay: 30, oneMonth: 90, oneAndHalfMonth: 150, twoMonth: 180 },
       description: "Multi-colored chicken breed developed for rural farming conditions.",
       image: girirajaChick,
       features: ["Rural suitable", "Multi-colored", "Good for beginners"],
@@ -112,7 +112,7 @@ const Index = () => {
       id: 8,
       name: "Turkey",
       tamilName: "வான்கோழி",
-      prices: { oneDay: 100, oneMonth: 230, oneAndHalfMonth: 300 },
+      prices: { oneDay: 100, oneMonth: 230, oneAndHalfMonth: 300, twoMonth: 330 },
       description: "Large birds perfect for festive occasions and commercial farming.",
       image: turkeyChick,
       features: ["Large size", "Festive occasions", "High demand"],
@@ -124,7 +124,7 @@ const Index = () => {
       id: 9,
       name: "Duck",
       tamilName: "வாத்து",
-      prices: { oneDay: 60, oneMonth: 120, oneAndHalfMonth: 180 },
+      prices: { oneDay: 60, oneMonth: 120, oneAndHalfMonth: 180, twoMonth: 210 },
       description: "Water birds excellent for egg and meat production in suitable environments.",
       image: duckChick,
       features: ["Water birds", "Good egg layers", "Dual purpose"],
@@ -438,6 +438,71 @@ const Index = () => {
                       breed: breed.name, 
                       ageCategory: "1.5-month",
                       price: breed.prices.oneAndHalfMonth 
+                    }}
+                  >
+                    <Button 
+                      className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
+                      size="sm"
+                    >
+                      Order Now
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* 2-Month Old Chicks */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
+              🐓 2-Month Old Chicks (இரண்டு மாதம்)
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Fully grown and production-ready birds. Perfect for immediate egg laying and meat production.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {poultryProducts.map((breed, index) => (
+              <Card key={`2month-${breed.id}`} className="hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-accent/5" style={{animationDelay: `${index * 0.1}s`}}>
+                {breed.popular && (
+                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
+                    ⭐ Popular
+                  </Badge>
+                )}
+                
+                <CardHeader className="pb-3 p-4">
+                  <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
+                    <img 
+                      src={breed.image} 
+                      alt={breed.name}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <CardTitle className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center">
+                    {breed.name}
+                  </CardTitle>
+                  <CardDescription className="text-sm font-semibold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-2 text-center">
+                    {breed.tamilName}
+                  </CardDescription>
+                </CardHeader>
+
+                <CardContent className="pb-3 px-4">
+                  <div className="text-center p-3 rounded-lg bg-accent/5 border border-accent/20 mb-3">
+                    <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">₹{breed.prices.twoMonth}</span>
+                    <p className="text-xs text-muted-foreground mt-1">per chick</p>
+                  </div>
+                </CardContent>
+
+                <CardFooter className="pt-0 px-4">
+                  <Link 
+                    to="/payment" 
+                    state={{ 
+                      breed: breed.name, 
+                      ageCategory: "2-month",
+                      price: breed.prices.twoMonth 
                     }}
                   >
                     <Button 
