@@ -10,7 +10,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, Phone, Home, Info, Mail, ShoppingCart } from "lucide-react";
+import { Menu, Phone, Home, Info, Mail, ShoppingCart, Package } from "lucide-react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import farmHero from "@/assets/farm-hero.jpg";
 import sonaliChick from "@/assets/sonali-chick.jpg";
 import peruvidaiChick from "@/assets/peruvidai-chick.jpg";
@@ -23,6 +25,26 @@ import turkeyChick from "@/assets/turkey-chick.jpg";
 import duckChick from "@/assets/duck-chick.jpg";
 
 const Index = () => {
+  const [medicines, setMedicines] = useState([]);
+
+  useEffect(() => {
+    fetchMedicines();
+  }, []);
+
+  const fetchMedicines = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('medicines')
+        .select('*')
+        .order('name');
+      
+      if (error) throw error;
+      setMedicines(data || []);
+    } catch (error) {
+      console.error('Error fetching medicines:', error);
+    }
+  };
+
   const poultryProducts = [
     {
       id: 1,
@@ -191,6 +213,15 @@ const Index = () => {
                     <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                       <Mail className="w-4 h-4 mr-2" />
                       Contact
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link to="/admin">
+                    <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                      <Menu className="w-4 h-4 mr-2" />
+                      Admin
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
@@ -507,6 +538,64 @@ const Index = () => {
                   >
                     <Button 
                       className={`w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white ${breed.popular ? 'bg-gradient-rainbow hover:opacity-90' : breed.buttonClass}`}
+                      size="sm"
+                    >
+                      Order Now
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Medicines Section */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
+              💊 Poultry Medicines & Supplements
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Essential medicines and supplements for healthy poultry farming and disease prevention.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {medicines.map((medicine, index) => (
+              <Card key={medicine.id} className="hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-accent/5" style={{animationDelay: `${index * 0.1}s`}}>
+                <CardHeader className="pb-3 p-4">
+                  <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-gradient-to-br from-green-50 to-blue-50 ring-2 ring-accent-bright/30 shadow-warm flex items-center justify-center">
+                    <Package className="h-16 w-16 text-primary" />
+                  </div>
+                  <CardTitle className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center">
+                    {medicine.name}
+                  </CardTitle>
+                  <CardDescription className="text-xs text-muted-foreground text-center">
+                    {medicine.category} • {medicine.manufacturer}
+                  </CardDescription>
+                </CardHeader>
+
+                <CardContent className="pb-3 px-4">
+                  <p className="text-xs text-muted-foreground mb-3 text-center line-clamp-2">
+                    {medicine.description}
+                  </p>
+                  <div className="text-center p-3 rounded-lg bg-accent/5 border border-accent/20 mb-3">
+                    <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">₹{medicine.price}</span>
+                    <p className="text-xs text-muted-foreground mt-1">Stock: {medicine.stock_quantity}</p>
+                  </div>
+                </CardContent>
+
+                <CardFooter className="pt-0 px-4">
+                  <Link 
+                    to="/payment" 
+                    state={{ 
+                      breed: medicine.name, 
+                      ageCategory: "medicine",
+                      price: medicine.price 
+                    }}
+                  >
+                    <Button 
+                      className="w-full font-semibold text-sm shadow-warm hover:shadow-glow transition-all duration-300 text-white bg-gradient-to-r from-green-500 to-blue-500 hover:opacity-90"
                       size="sm"
                     >
                       Order Now
