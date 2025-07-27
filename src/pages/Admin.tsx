@@ -15,10 +15,12 @@ import {
   Eye,
   Edit,
   Trash2,
-  Package
+  Package,
+  LogOut
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface Order {
   id: string;
@@ -55,6 +57,7 @@ const Admin = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     checkAdminAccess();
@@ -86,9 +89,31 @@ const Admin = () => {
           description: "You don't have admin privileges",
           variant: "destructive",
         });
+        navigate("/auth");
       }
     } catch (error) {
       console.error('Error checking admin access:', error);
+      navigate("/auth");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      
+      toast({
+        title: "Logged out",
+        description: "You have been logged out successfully",
+      });
+      navigate("/");
+    } catch (error) {
+      console.error('Error logging out:', error);
+      toast({
+        title: "Error",
+        description: "Failed to logout",
+        variant: "destructive",
+      });
     }
   };
 
@@ -205,8 +230,20 @@ const Admin = () => {
       {/* Header */}
       <div className="bg-card shadow-sm border-b">
         <div className="container mx-auto px-4 py-4">
-          <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Manage orders, customers, and inventory</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
+              <p className="text-muted-foreground">Manage orders, customers, and inventory</p>
+            </div>
+            <Button 
+              variant="outline" 
+              onClick={handleLogout}
+              className="flex items-center gap-2"
+            >
+              <LogOut className="h-4 w-4" />
+              Logout
+            </Button>
+          </div>
         </div>
       </div>
 
