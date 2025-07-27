@@ -1,16 +1,22 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, CreditCard, Smartphone, Building2, Truck } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Payment = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const orderData = location.state || {};
   const [selectedPayment, setSelectedPayment] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
   const [orderDetails, setOrderDetails] = useState({
     name: "",
     phone: "",
+    email: "",
     address: "",
     quantity: 1,
     breed: orderData.breed || "",
@@ -22,14 +28,157 @@ const Payment = () => {
     return orderDetails.quantity * orderDetails.price;
   };
 
-  const handleSubmitOrder = () => {
+  const handleSubmitOrder = async () => {
     if (!selectedPayment || !orderDetails.name || !orderDetails.phone || !orderDetails.address) {
-      alert("Please fill all required fields and select a payment method");
+      toast({
+        title: "Error",
+        description: "Please fill all required fields and select a payment method",
+        variant: "destructive",
+      });
       return;
     }
+
+    setIsProcessing(true);
+
+    try {
+      if (selectedPayment === 'card' || selectedPayment === 'upi') {
+        // Process Razorpay payment
+        await processRazorpayPayment();
+      } else {
+        // Handle other payment methods (COD, Bank Transfer)
+        await handleOtherPayments();
+      }
+    } catch (error) {
+      console.error('Payment error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to process payment. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const processRazorpayPayment = async () => {
+    // Check if user is authenticated
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please login to complete payment",
+        variant: "destructive",
+      });
+      navigate("/auth");
+      return;
+    }
+
+    const orderPayload = {
+      customer_name: orderDetails.name,
+      customer_phone: orderDetails.phone,
+      customer_email: orderDetails.email,
+      delivery_address: orderDetails.address,
+      breed: orderDetails.breed,
+      age_category: orderDetails.ageCategory,
+      quantity: orderDetails.quantity,
+      price_per_piece: orderDetails.price,
+      total_amount: calculateTotal(),
+    };
+
+    // Create Razorpay order
+    const { data, error } = await supabase.functions.invoke('create-razorpay-order', {
+      body: { orderData: orderPayload }
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    // Initialize Razorpay
+    const options = {
+      key: data.key_id,
+      amount: data.amount,
+      currency: data.currency,
+      name: "RP Poultry Farm",
+      description: `${orderDetails.breed} - ${orderDetails.quantity} pieces`,
+      order_id: data.razorpay_order_id,
+      handler: async (response: any) => {
+        try {
+          // Verify payment
+          const { error: verifyError } = await supabase.functions.invoke('verify-razorpay-payment', {
+            body: {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              order_id: data.order_id,
+            }
+          });
+
+          if (verifyError) {
+            throw new Error(verifyError.message);
+          }
+
+          toast({
+            title: "Payment Successful!",
+            description: "Your order has been confirmed. We will contact you soon.",
+          });
+          navigate("/");
+        } catch (error) {
+          console.error('Payment verification error:', error);
+          toast({
+            title: "Payment Verification Failed",
+            description: "Please contact support with your payment details.",
+            variant: "destructive",
+          });
+        }
+      },
+      prefill: {
+        name: orderDetails.name,
+        email: orderDetails.email,
+        contact: orderDetails.phone,
+      },
+      theme: {
+        color: "#10B981"
+      }
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
+  };
+
+  const handleOtherPayments = async () => {
+    // For COD and Bank Transfer, create order without payment processing
+    const { data: { user } } = await supabase.auth.getUser();
     
-    // Here you would typically send the order to your backend
-    alert(`Order placed successfully! Total: ₹${calculateTotal()}. We will contact you for confirmation.`);
+    const orderPayload = {
+      user_id: user?.id || null,
+      customer_name: orderDetails.name,
+      customer_phone: orderDetails.phone,
+      customer_email: orderDetails.email,
+      delivery_address: orderDetails.address,
+      breed: orderDetails.breed,
+      age_category: orderDetails.ageCategory,
+      quantity: orderDetails.quantity,
+      price_per_piece: orderDetails.price,
+      total_amount: calculateTotal(),
+      payment_method: selectedPayment,
+      payment_status: selectedPayment === 'cod' ? 'pending' : 'pending',
+      status: 'pending',
+    };
+
+    const { error } = await supabase
+      .from('orders')
+      .insert(orderPayload);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    toast({
+      title: "Order Placed Successfully!",
+      description: `Your order has been placed. ${selectedPayment === 'cod' ? 'Pay on delivery.' : 'Please complete the bank transfer and contact us.'}`,
+    });
+    navigate("/");
   };
 
   return (
@@ -79,6 +228,17 @@ const Payment = () => {
                     className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                     placeholder="Enter your phone number"
                     required
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2">Email Address</label>
+                  <input 
+                    type="email" 
+                    value={orderDetails.email}
+                    onChange={(e) => setOrderDetails({...orderDetails, email: e.target.value})}
+                    className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
+                    placeholder="Enter your email address"
                   />
                 </div>
                 
@@ -250,9 +410,9 @@ const Payment = () => {
                 <Button 
                   onClick={handleSubmitOrder}
                   className="w-full mt-6"
-                  disabled={!selectedPayment}
+                  disabled={!selectedPayment || isProcessing}
                 >
-                  Place Order
+                  {isProcessing ? "Processing..." : "Place Order"}
                 </Button>
               </CardContent>
             </Card>
