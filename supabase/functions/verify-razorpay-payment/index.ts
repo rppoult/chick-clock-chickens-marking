@@ -24,17 +24,9 @@ serve(async (req) => {
       }
     )
 
-    // Get user from auth token
-    const { data: { user }, error: authError } = await supabaseClient.auth.getUser()
-    if (authError || !user) {
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        { 
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      )
-    }
+    // Get user from auth token (optional for guest checkout)
+    const { data: { user } } = await supabaseClient.auth.getUser()
+    // Allow guest checkout - user can be null
 
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature, order_id } = await req.json()
 
@@ -76,7 +68,7 @@ serve(async (req) => {
       )
     }
 
-    // Update order in database
+    // Update order in database (works for both authenticated and guest users)
     const { data: updatedOrder, error: updateError } = await supabaseClient
       .from('orders')
       .update({
@@ -85,7 +77,7 @@ serve(async (req) => {
         razorpay_payment_id: razorpay_payment_id,
       })
       .eq('id', order_id)
-      .eq('user_id', user.id)
+      // Remove user_id constraint to allow guest orders
       .select()
       .single()
 

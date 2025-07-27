@@ -23,17 +23,9 @@ serve(async (req) => {
       }
     )
 
-    // Get user from auth token
-    const { data: { user }, error: authError } = await supabaseClient.auth.getUser()
-    if (authError || !user) {
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        { 
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      )
-    }
+    // Get user from auth token (optional for guest checkout)
+    const { data: { user } } = await supabaseClient.auth.getUser()
+    // Allow guest checkout - user can be null
 
     const { orderData } = await req.json()
 
@@ -80,11 +72,11 @@ serve(async (req) => {
       throw new Error(razorpayData.error?.description || 'Failed to create Razorpay order')
     }
 
-    // Store order in database
+    // Store order in database (works for both authenticated and guest users)
     const { data: dbOrder, error: dbError } = await supabaseClient
       .from('orders')
       .insert({
-        user_id: user.id,
+        user_id: user?.id || null, // Allow null for guest users
         customer_name: orderData.customer_name,
         customer_phone: orderData.customer_phone,
         customer_email: orderData.customer_email || '',

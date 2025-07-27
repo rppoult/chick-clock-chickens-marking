@@ -13,6 +13,17 @@ const Payment = () => {
   const orderData = location.state || {};
   const [selectedPayment, setSelectedPayment] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [breeds] = useState([
+    "Aseel",
+    "Giriraja", 
+    "Sonali",
+    "Kadaknath",
+    "Peruvidai",
+    "Duck",
+    "Turkey",
+    "Guineafowl",
+    "Fancy"
+  ]);
   const [orderDetails, setOrderDetails] = useState({
     name: "",
     phone: "",
@@ -21,7 +32,7 @@ const Payment = () => {
     quantity: 1,
     breed: orderData.breed || "",
     ageCategory: orderData.ageCategory || "1-day",
-    price: orderData.price || 0
+    price: orderData.price || 50
   });
 
   const calculateTotal = () => {
@@ -61,18 +72,7 @@ const Payment = () => {
   };
 
   const processRazorpayPayment = async () => {
-    // Check if user is authenticated
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      toast({
-        title: "Authentication Required",
-        description: "Please login to complete payment",
-        variant: "destructive",
-      });
-      navigate("/auth");
-      return;
-    }
-
+    // No authentication required for guest checkout
     const orderPayload = {
       customer_name: orderDetails.name,
       customer_phone: orderDetails.phone,
@@ -85,7 +85,7 @@ const Payment = () => {
       total_amount: calculateTotal(),
     };
 
-    // Create Razorpay order
+    // Create Razorpay order without authentication
     const { data, error } = await supabase.functions.invoke('create-razorpay-order', {
       body: { orderData: orderPayload }
     });
@@ -147,11 +147,9 @@ const Payment = () => {
   };
 
   const handleOtherPayments = async () => {
-    // For COD and Bank Transfer, create order without payment processing
-    const { data: { user } } = await supabase.auth.getUser();
-    
+    // For COD and Bank Transfer, create order without authentication
     const orderPayload = {
-      user_id: user?.id || null,
+      user_id: null, // Guest checkout
       customer_name: orderDetails.name,
       customer_phone: orderDetails.phone,
       customer_email: orderDetails.email,
@@ -255,16 +253,20 @@ const Payment = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Breed</label>
-                    <input 
-                      type="text" 
-                      value={orderDetails.breed}
-                      onChange={(e) => setOrderDetails({...orderDetails, breed: e.target.value})}
-                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
-                      placeholder="Select breed"
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Breed *</label>
+                  <select 
+                    value={orderDetails.breed}
+                    onChange={(e) => setOrderDetails({...orderDetails, breed: e.target.value})}
+                    className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
+                    required
+                  >
+                    <option value="">Select breed</option>
+                    {breeds.map((breed) => (
+                      <option key={breed} value={breed}>{breed}</option>
+                    ))}
+                  </select>
+                </div>
                   
                   <div>
                     <label className="block text-sm font-medium mb-2">Age Category</label>
