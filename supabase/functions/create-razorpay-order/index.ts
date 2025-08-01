@@ -13,19 +13,14 @@ serve(async (req) => {
   }
 
   try {
+    // Create Supabase client for guest checkout (no auth required)
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      {
-        global: {
-          headers: { Authorization: req.headers.get('Authorization')! },
-        },
-      }
+      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
     )
 
-    // Get user from auth token (optional for guest checkout)
-    const { data: { user } } = await supabaseClient.auth.getUser()
-    // Allow guest checkout - user can be null
+    // For guest checkout, we don't need to get the user
+    // user_id will be null for guest orders
 
     const { orderData } = await req.json()
 
@@ -76,7 +71,7 @@ serve(async (req) => {
     const { data: dbOrder, error: dbError } = await supabaseClient
       .from('orders')
       .insert({
-        user_id: user?.id || null, // Allow null for guest users
+        user_id: null, // Always null for guest checkout
         customer_name: orderData.customer_name,
         customer_phone: orderData.customer_phone,
         customer_email: orderData.customer_email || '',

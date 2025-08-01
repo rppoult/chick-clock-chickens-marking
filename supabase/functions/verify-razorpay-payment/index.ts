@@ -14,19 +14,13 @@ serve(async (req) => {
   }
 
   try {
+    // Create Supabase client for guest checkout (no auth required)
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      {
-        global: {
-          headers: { Authorization: req.headers.get('Authorization')! },
-        },
-      }
+      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
     )
 
-    // Get user from auth token (optional for guest checkout)
-    const { data: { user } } = await supabaseClient.auth.getUser()
-    // Allow guest checkout - user can be null
+    // For guest checkout, we don't need to get the user
 
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature, order_id } = await req.json()
 
