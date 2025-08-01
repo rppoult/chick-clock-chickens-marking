@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 
 interface Order {
   id: string;
+  user_id: string | null;
   customer_name: string;
   customer_phone: string;
   customer_email: string;
@@ -342,6 +343,9 @@ const Admin = () => {
                           <h4 className="font-semibold text-foreground">{order.customer_name}</h4>
                           <p className="text-sm text-muted-foreground">{order.customer_phone}</p>
                           <p className="text-sm text-muted-foreground">{order.customer_email}</p>
+                          {!order.user_id && (
+                            <p className="text-xs text-orange-600 font-medium">Guest Order</p>
+                          )}
                         </div>
                         
                         <div>
