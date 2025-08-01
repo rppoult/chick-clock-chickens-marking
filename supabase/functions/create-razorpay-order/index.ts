@@ -13,10 +13,10 @@ serve(async (req) => {
   }
 
   try {
-    // Create Supabase client for guest checkout (no auth required)
+    // Create Supabase client with service role for guest checkout
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     )
 
     // For guest checkout, we don't need to get the user
