@@ -863,6 +863,15 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      {/* Developer Attribution */}
+      <footer className="bg-muted/50 py-4">
+        <div className="container mx-auto text-center">
+          <p className="text-sm text-muted-foreground">
+            Developed by <span className="font-semibold text-primary">TECHFOX</span>
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
