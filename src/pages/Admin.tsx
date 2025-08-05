@@ -24,6 +24,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { ProductForm } from "@/components/ProductForm";
+import { OrderDetailsModal } from "@/components/OrderDetailsModal";
+import { CategoryManager } from "@/components/CategoryManager";
 
 interface Order {
   id: string;
@@ -41,7 +43,9 @@ interface Order {
   payment_status: string;
   status: string;
   created_at: string;
+  updated_at: string;
   razorpay_payment_id?: string;
+  razorpay_order_id?: string;
 }
 
 interface Medicine {
@@ -65,6 +69,8 @@ const Admin = () => {
   const [filterStatus, setFilterStatus] = useState("all");
   const [showProductForm, setShowProductForm] = useState(false);
   const [editingMedicine, setEditingMedicine] = useState<Medicine | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [showOrderDetails, setShowOrderDetails] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -320,9 +326,10 @@ const Admin = () => {
 
         {/* Main Content */}
         <Tabs defaultValue="orders" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="orders">Orders Management</TabsTrigger>
-            <TabsTrigger value="medicines">Medicine Inventory</TabsTrigger>
+            <TabsTrigger value="medicines">Product Inventory</TabsTrigger>
+            <TabsTrigger value="categories">Categories</TabsTrigger>
             <TabsTrigger value="customers">Customer Analytics</TabsTrigger>
           </TabsList>
 
@@ -404,7 +411,15 @@ const Admin = () => {
                           </select>
                           
                           <div className="flex gap-1">
-                            <Button size="sm" variant="outline" className="flex-1">
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              className="flex-1"
+                              onClick={() => {
+                                setSelectedOrder(order);
+                                setShowOrderDetails(true);
+                              }}
+                            >
                               <Eye className="h-3 w-3" />
                             </Button>
                             <Button size="sm" variant="outline" className="flex-1">
@@ -518,6 +533,11 @@ const Admin = () => {
             </Card>
           </TabsContent>
 
+          {/* Categories Tab */}
+          <TabsContent value="categories" className="space-y-6">
+            <CategoryManager />
+          </TabsContent>
+
           {/* Customers Tab */}
           <TabsContent value="customers" className="space-y-6">
             <Card>
@@ -548,6 +568,16 @@ const Admin = () => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Order Details Modal */}
+        <OrderDetailsModal
+          order={selectedOrder}
+          isOpen={showOrderDetails}
+          onClose={() => {
+            setShowOrderDetails(false);
+            setSelectedOrder(null);
+          }}
+        />
       </div>
     </div>
   );
