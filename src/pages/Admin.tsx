@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { 
   Users, 
   ShoppingCart, 
@@ -16,11 +17,13 @@ import {
   Edit,
   Trash2,
   Package,
-  LogOut
+  LogOut,
+  Plus
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { ProductForm } from "@/components/ProductForm";
 
 interface Order {
   id: string;
@@ -49,6 +52,9 @@ interface Medicine {
   stock_quantity: number;
   category: string;
   manufacturer: string;
+  image_url?: string;
+  created_at: string;
+  updated_at: string;
 }
 
 const Admin = () => {
@@ -57,6 +63,8 @@ const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [showProductForm, setShowProductForm] = useState(false);
+  const [editingMedicine, setEditingMedicine] = useState<Medicine | null>(null);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -70,28 +78,10 @@ const Admin = () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        toast({
-          title: "Access Denied",
-          description: "Please login to access admin panel",
-          variant: "destructive",
-        });
+        navigate("/auth");
         return;
       }
-
-      const { data: roles } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id);
-
-      const isAdmin = roles?.some(role => role.role === 'admin');
-      if (!isAdmin) {
-        toast({
-          title: "Access Denied",
-          description: "You don't have admin privileges",
-          variant: "destructive",
-        });
-        navigate("/auth");
-      }
+      // All users are now admin by default, so no need to check roles
     } catch (error) {
       console.error('Error checking admin access:', error);
       navigate("/auth");
@@ -178,6 +168,38 @@ const Admin = () => {
         variant: "destructive",
       });
     }
+  };
+
+  const deleteMedicine = async (medicineId: string) => {
+    if (!confirm('Are you sure you want to delete this product?')) return;
+
+    try {
+      const { error } = await supabase
+        .from('medicines')
+        .delete()
+        .eq('id', medicineId);
+
+      if (error) throw error;
+
+      setMedicines(prev => prev.filter(med => med.id !== medicineId));
+      toast({
+        title: "Success",
+        description: "Product deleted successfully",
+      });
+    } catch (error) {
+      console.error('Error deleting medicine:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete product",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleProductFormSuccess = () => {
+    setShowProductForm(false);
+    setEditingMedicine(null);
+    fetchMedicines();
   };
 
   const filteredOrders = orders.filter(order => {
@@ -415,12 +437,39 @@ const Admin = () => {
           <TabsContent value="medicines" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl text-primary">Medicine Inventory</CardTitle>
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-xl text-primary">Product Inventory</CardTitle>
+                  <Dialog open={showProductForm} onOpenChange={setShowProductForm}>
+                    <DialogTrigger asChild>
+                      <Button className="flex items-center gap-2">
+                        <Plus className="h-4 w-4" />
+                        Add Product
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                      <ProductForm
+                        medicine={editingMedicine}
+                        onSuccess={handleProductFormSuccess}
+                        onCancel={() => {
+                          setShowProductForm(false);
+                          setEditingMedicine(null);
+                        }}
+                      />
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {medicines.map((medicine) => (
                     <Card key={medicine.id} className="p-4">
+                      {medicine.image_url && (
+                        <img
+                          src={medicine.image_url}
+                          alt={medicine.name}
+                          className="w-full h-32 object-cover rounded-lg mb-3"
+                        />
+                      )}
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-semibold text-foreground">{medicine.name}</h4>
                         <Badge variant={medicine.stock_quantity > 10 ? "default" : "destructive"}>
@@ -434,17 +483,36 @@ const Admin = () => {
                         <p className="text-sm"><span className="font-medium">Manufacturer:</span> {medicine.manufacturer}</p>
                       </div>
                       <div className="flex gap-2 mt-3">
-                        <Button size="sm" variant="outline" className="flex-1">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="flex-1"
+                          onClick={() => {
+                            setEditingMedicine(medicine);
+                            setShowProductForm(true);
+                          }}
+                        >
                           <Edit className="h-3 w-3 mr-1" />
                           Edit
                         </Button>
-                        <Button size="sm" variant="outline" className="flex-1">
-                          <Package className="h-3 w-3 mr-1" />
-                          Stock
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="flex-1"
+                          onClick={() => deleteMedicine(medicine.id)}
+                        >
+                          <Trash2 className="h-3 w-3 mr-1" />
+                          Delete
                         </Button>
                       </div>
                     </Card>
                   ))}
+                  
+                  {medicines.length === 0 && (
+                    <div className="col-span-full text-center py-8 text-muted-foreground">
+                      No products found. Add your first product to get started.
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
