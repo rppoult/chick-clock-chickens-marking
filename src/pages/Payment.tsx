@@ -4,11 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, CreditCard, Smartphone, Building2, Truck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 
 const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { toast } = useToast();
   const orderData = location.state || {};
   const [selectedPayment, setSelectedPayment] = useState("");
@@ -147,9 +149,9 @@ const Payment = () => {
   };
 
   const handleOtherPayments = async () => {
-    // For COD and Bank Transfer, create order without authentication
+    // Create order with user_id if authenticated, otherwise guest checkout
     const orderPayload = {
-      user_id: null, // Guest checkout
+      user_id: user?.id || null, // Link to authenticated user if available
       customer_name: orderDetails.name,
       customer_phone: orderDetails.phone,
       customer_email: orderDetails.email,
@@ -300,11 +302,11 @@ const Payment = () => {
                     <input 
                       type="number" 
                       value={orderDetails.price}
-                      readOnly
-                      className="w-full p-3 border border-input rounded-md bg-muted/50 cursor-not-allowed"
+                      onChange={(e) => setOrderDetails({...orderDetails, price: parseInt(e.target.value) || 0})}
+                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
                       placeholder="₹ Price"
                     />
-                    <p className="text-xs text-muted-foreground mt-1">Price is determined by breed and age category</p>
+                    <p className="text-xs text-muted-foreground mt-1">Base price - total will calculate automatically</p>
                   </div>
                 </div>
               </CardContent>

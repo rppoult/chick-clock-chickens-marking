@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { UserMenu } from "@/components/UserMenu";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
@@ -11,7 +12,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Phone, Home, Info, Mail, ShoppingCart, Package } from "lucide-react";
+import { Menu, Phone, Home, Info, Mail, ShoppingCart, Package, History } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import farmHero from "@/assets/farm-hero.jpg";
@@ -223,7 +224,7 @@ const Index = () => {
                   <Link to="/auth">
                     <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                       <Menu className="w-4 h-4 mr-2" />
-                      Admin Login
+                      Account
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
@@ -238,6 +239,11 @@ const Index = () => {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
+            
+            {/* User Menu - Desktop */}
+            <div className="hidden md:block">
+              <UserMenu />
+            </div>
 
             {/* Mobile Menu */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -311,12 +317,21 @@ const Index = () => {
                   </Link>
                   
                   <Link 
+                    to="/orders" 
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-accent transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <History className="w-5 h-5 text-primary" />
+                    <span className="font-medium">My Orders</span>
+                  </Link>
+                  
+                  <Link 
                     to="/auth" 
                     className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-accent transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <Menu className="w-5 h-5 text-primary" />
-                    <span className="font-medium">Admin Login</span>
+                    <span className="font-medium">Account</span>
                   </Link>
                   
                   <Link 
