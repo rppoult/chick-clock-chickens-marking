@@ -10,6 +10,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Phone, Home, Info, Mail, ShoppingCart, Package } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -26,6 +27,7 @@ import duckChick from "@/assets/duck-chick.jpg";
 
 const Index = () => {
   const [medicines, setMedicines] = useState([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     fetchMedicines();
@@ -237,10 +239,113 @@ const Index = () => {
               </NavigationMenuList>
             </NavigationMenu>
 
-            {/* Mobile Menu Button */}
-            <Button variant="outline" size="sm" className="md:hidden">
-              <Menu className="w-4 h-4" />
-            </Button>
+            {/* Mobile Menu */}
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="sm" className="md:hidden">
+                  <Menu className="w-4 h-4" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                <SheetHeader>
+                  <SheetTitle className="text-left">
+                    <Link to="/" className="text-xl font-bold text-primary">
+                      RP POULTRY FARM
+                    </Link>
+                  </SheetTitle>
+                  <SheetDescription className="text-left">
+                    Premium quality poultry breeds
+                  </SheetDescription>
+                </SheetHeader>
+                
+                <nav className="flex flex-col gap-4 mt-8">
+                  <Link 
+                    to="/" 
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-accent transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Home className="w-5 h-5 text-primary" />
+                    <span className="font-medium">Home</span>
+                  </Link>
+                  
+                  <div className="px-4 py-3">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Package className="w-5 h-5 text-primary" />
+                      <span className="font-medium">Products</span>
+                    </div>
+                    <div className="ml-8 space-y-2">
+                      <a href="#1day-section" className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                        1-Day Old Chicks
+                      </a>
+                      <a href="#1month-section" className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                        1-Month Old Chicks
+                      </a>
+                      <a href="#1.5month-section" className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                        1.5-Month Old Chicks
+                      </a>
+                      <a href="#2month-section" className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                        2-Month Old Chicks
+                      </a>
+                      <a href="#medicines-section" className="block py-2 text-sm text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                        Medicines & Supplements
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <Link 
+                    to="/about" 
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-accent transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Info className="w-5 h-5 text-primary" />
+                    <span className="font-medium">About Us</span>
+                  </Link>
+                  
+                  <Link 
+                    to="/contact" 
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-accent transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Mail className="w-5 h-5 text-primary" />
+                    <span className="font-medium">Contact</span>
+                  </Link>
+                  
+                  <Link 
+                    to="/auth" 
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-accent transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Menu className="w-5 h-5 text-primary" />
+                    <span className="font-medium">Admin Login</span>
+                  </Link>
+                  
+                  <Link 
+                    to="/payment" 
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <ShoppingCart className="w-5 h-5" />
+                    <span className="font-medium">Order Now</span>
+                  </Link>
+                  
+                  <div className="border-t pt-4 mt-4">
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium text-foreground">Contact Info</p>
+                      <div className="space-y-1">
+                        <a href="tel:9500790276" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+                          <Phone className="w-4 h-4" />
+                          9500790276
+                        </a>
+                        <a href="tel:9994931708" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+                          <Phone className="w-4 h-4" />
+                          9994931708
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>
@@ -290,7 +395,7 @@ const Index = () => {
         </div>
 
         {/* 1-Day Old Chicks */}
-        <div className="mb-20">
+        <div className="mb-20" id="1day-section">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
               🐣 1-Day Old Chicks (ஒரு நாள்)
@@ -355,7 +460,7 @@ const Index = () => {
         </div>
 
         {/* 1-Month Old Chicks */}
-        <div className="mb-20">
+        <div className="mb-20" id="1month-section">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
               🐤 1-Month Old Chicks (ஒரு மாதம்)
@@ -420,7 +525,7 @@ const Index = () => {
         </div>
 
         {/* 1.5-Month Old Chicks */}
-        <div className="mb-20">
+        <div className="mb-20" id="1.5month-section">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
               🐥 1.5-Month Old Chicks (ஒன்றை மாதம்)
@@ -485,7 +590,7 @@ const Index = () => {
         </div>
 
         {/* 2-Month Old Chicks */}
-        <div className="mb-20">
+        <div className="mb-20" id="2month-section">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
               🐓 2-Month Old Chicks (இரண்டு மாதம்)
@@ -550,7 +655,7 @@ const Index = () => {
         </div>
 
         {/* Medicines Section */}
-        <div className="mb-20">
+        <div className="mb-20" id="medicines-section">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
               💊 Poultry Medicines & Supplements
