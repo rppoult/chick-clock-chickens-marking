@@ -300,10 +300,11 @@ const Payment = () => {
                     <input 
                       type="number" 
                       value={orderDetails.price}
-                      onChange={(e) => setOrderDetails({...orderDetails, price: parseInt(e.target.value) || 0})}
-                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
+                      readOnly
+                      className="w-full p-3 border border-input rounded-md bg-muted/50 cursor-not-allowed"
                       placeholder="₹ Price"
                     />
+                    <p className="text-xs text-muted-foreground mt-1">Price is determined by breed and age category</p>
                   </div>
                 </div>
               </CardContent>

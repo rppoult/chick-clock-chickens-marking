@@ -660,7 +660,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="text-center mt-8">
+          <div className="text-center mt-8 space-y-4">
             <div className="inline-flex items-center space-x-4 p-4 bg-card/70 rounded-xl shadow-warm">
               <span className="text-success text-2xl">✅</span>
               <span className="text-foreground font-semibold">Secure Payments</span>
@@ -668,6 +668,18 @@ const Index = () => {
               <span className="text-foreground font-semibold">Fast Processing</span>
               <span className="text-success text-2xl">✅</span>
               <span className="text-foreground font-semibold">Money Back Guarantee</span>
+            </div>
+            
+            <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-4 rounded-xl border border-accent/30">
+              <div className="flex items-center justify-center gap-3">
+                <span className="text-2xl">🏢</span>
+                <div className="text-center">
+                  <p className="text-sm text-muted-foreground">GST Number</p>
+                  <p className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent">
+                    33AARFR3498G1ZR
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
