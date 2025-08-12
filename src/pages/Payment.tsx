@@ -288,25 +288,38 @@ const Payment = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-2">Quantity</label>
-                    <input 
-                      type="number" 
-                      min="1"
-                      value={orderDetails.quantity}
-                      onChange={(e) => setOrderDetails({...orderDetails, quantity: parseInt(e.target.value) || 1})}
-                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
-                    />
+                    <div className="flex items-center border border-input rounded-md">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setOrderDetails({...orderDetails, quantity: Math.max(1, orderDetails.quantity - 1)})}
+                        className="px-3 py-2 rounded-l-md rounded-r-none border-r"
+                        disabled={orderDetails.quantity <= 1}
+                      >
+                        -
+                      </Button>
+                      <div className="flex-1 px-3 py-2 text-center bg-background">
+                        {orderDetails.quantity}
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setOrderDetails({...orderDetails, quantity: orderDetails.quantity + 1})}
+                        className="px-3 py-2 rounded-r-md rounded-l-none border-l"
+                      >
+                        +
+                      </Button>
+                    </div>
                   </div>
                   
                   <div>
                     <label className="block text-sm font-medium mb-2">Price per piece</label>
-                    <input 
-                      type="number" 
-                      value={orderDetails.price}
-                      onChange={(e) => setOrderDetails({...orderDetails, price: parseInt(e.target.value) || 0})}
-                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
-                      placeholder="₹ Price"
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">Base price - total will calculate automatically</p>
+                    <div className="w-full p-3 border border-input rounded-md bg-muted text-muted-foreground">
+                      ₹{orderDetails.price}
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">Base price - total calculated automatically</p>
                   </div>
                 </div>
               </CardContent>
