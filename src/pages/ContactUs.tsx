@@ -43,11 +43,11 @@ const ContactUs = () => {
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-lg font-medium">+91 9876543210</span>
+                  <span className="text-lg font-medium">+91 9500790276</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-lg font-medium">+91 9876543211</span>
+                  <span className="text-lg font-medium">+91 9994931708</span>
                 </div>
                 <p className="text-sm text-gray-600 mt-2">Available for orders and inquiries</p>
               </CardContent>
@@ -76,8 +76,8 @@ const ContactUs = () => {
               <CardContent>
                 <p className="text-lg font-medium mb-2">RP Poultry Farm & Traders</p>
                 <p className="text-gray-700">
-                  Village Name, District<br />
-                  State - PIN Code<br />
+                  Errabaiyanahalli<br />
+                  Tamil Nadu - 636813<br />
                   India
                 </p>
                 <Button variant="outline" className="mt-3">
@@ -96,17 +96,10 @@ const ContactUs = () => {
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span>Monday - Friday:</span>
-                    <span className="font-medium">6:00 AM - 7:00 PM</span>
+                    <span>Monday - Sunday:</span>
+                    <span className="font-medium">Open 24 hours</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Saturday:</span>
-                    <span className="font-medium">6:00 AM - 8:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sunday:</span>
-                    <span className="font-medium">7:00 AM - 6:00 PM</span>
-                  </div>
+                  <p className="text-sm text-gray-600 mt-2">Available round the clock for orders and emergencies</p>
                 </div>
               </CardContent>
             </Card>
