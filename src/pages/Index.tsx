@@ -838,7 +838,12 @@ const Index = () => {
                 <span className="text-2xl text-primary-foreground">📍</span>
               </div>
               <h4 className="text-lg font-semibold text-foreground mb-2">Location</h4>
-              <p className="text-muted-foreground text-sm">Errabaiyanahalli, Tamil Nadu 636813</p>
+              <p 
+                className="text-muted-foreground text-sm cursor-pointer hover:text-primary transition-colors" 
+                onClick={() => window.open('https://maps.app.goo.gl/FzpHr4c7qQi66rTX7', '_blank')}
+              >
+                Errabaiyanahalli, Tamil Nadu 636813
+              </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-golden rounded-full mx-auto mb-4 flex items-center justify-center">
