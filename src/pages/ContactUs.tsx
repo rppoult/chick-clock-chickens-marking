@@ -80,7 +80,11 @@ const ContactUs = () => {
                   Tamil Nadu - 636813<br />
                   India
                 </p>
-                <Button variant="outline" className="mt-3">
+                <Button 
+                  variant="outline" 
+                  className="mt-3"
+                  onClick={() => window.open('https://maps.app.goo.gl/FzpHr4c7qQi66rTX7', '_blank')}
+                >
                   Get Directions
                 </Button>
               </CardContent>
