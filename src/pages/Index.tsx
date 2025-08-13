@@ -380,7 +380,7 @@ const Index = () => {
               RP POULTRY FARM
             </h1>
             <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-4 pulse-glow">
-              Dharmapuri
+              Errabaiyanahalli, Tamil Nadu
             </p>
             <div className="text-4xl mb-6 animate-bounce">🐣🐤🐥🐓🐔🦆🪿🦃</div>
           </div>
@@ -838,7 +838,7 @@ const Index = () => {
                 <span className="text-2xl text-primary-foreground">📍</span>
               </div>
               <h4 className="text-lg font-semibold text-foreground mb-2">Location</h4>
-              <p className="text-muted-foreground text-sm">Dharmapuri, Tamil Nadu</p>
+              <p className="text-muted-foreground text-sm">Errabaiyanahalli, Tamil Nadu 636813</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-golden rounded-full mx-auto mb-4 flex items-center justify-center">
