@@ -31,7 +31,7 @@ const Payment = () => {
     phone: "",
     email: "",
     address: "",
-    quantity: 1,
+    quantity: 50,
     breed: orderData.breed || "",
     ageCategory: orderData.ageCategory || "1-day",
     price: orderData.price || 50
@@ -46,6 +46,15 @@ const Payment = () => {
       toast({
         title: "Error",
         description: "Please fill all required fields and select a payment method",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (orderDetails.quantity < 50) {
+      toast({
+        title: "Minimum Order Quantity",
+        description: "Minimum order quantity is 50 pieces",
         variant: "destructive",
       });
       return;
@@ -287,15 +296,15 @@ const Payment = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Quantity</label>
+                    <label className="block text-sm font-medium mb-2">Quantity (Min: 50)</label>
                     <div className="flex items-center border border-input rounded-md">
                       <Button
                         type="button"
                         variant="ghost"
                         size="sm"
-                        onClick={() => setOrderDetails({...orderDetails, quantity: Math.max(1, orderDetails.quantity - 1)})}
+                        onClick={() => setOrderDetails({...orderDetails, quantity: Math.max(50, orderDetails.quantity - 1)})}
                         className="px-3 py-2 rounded-l-md rounded-r-none border-r"
-                        disabled={orderDetails.quantity <= 1}
+                        disabled={orderDetails.quantity <= 50}
                       >
                         -
                       </Button>
