@@ -398,6 +398,78 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Featured Breeds Carousel */}
+      <section className="py-16 px-6 bg-accent/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
+              Featured Breeds
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Explore our premium poultry breeds - slide through to see our quality birds
+            </p>
+          </div>
+          
+          <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-accent/10 to-primary/10 p-8">
+            <div className="flex animate-slide-in-right gap-8 overflow-x-auto scrollbar-hide pb-4" style={{scrollBehavior: 'smooth'}}>
+              {poultryProducts.slice(0, 6).map((breed, index) => (
+                <div 
+                  key={`featured-${breed.id}`} 
+                  className={`flex-none w-72 bg-card rounded-lg shadow-warm hover:shadow-colorful transition-all duration-500 hover-scale animate-fade-in border-2 border-accent/20`}
+                  style={{animationDelay: `${index * 0.2}s`}}
+                >
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <img 
+                      src={breed.image} 
+                      alt={breed.name}
+                      className="w-full h-48 object-cover transition-transform duration-700 hover:scale-110"
+                    />
+                    {breed.popular && (
+                      <Badge className="absolute top-2 right-2 bg-gradient-rainbow text-white font-bold animate-pulse">
+                        ⭐ Popular
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-2">
+                      {breed.name}
+                    </h3>
+                    <p className="text-sm text-accent font-semibold mb-3">{breed.tamilName}</p>
+                    <div className="grid grid-cols-2 gap-2 text-xs mb-4">
+                      <div className="bg-accent/10 p-2 rounded text-center">
+                        <span className="font-bold text-primary">1 Day: ₹{breed.prices.oneDay}</span>
+                      </div>
+                      <div className="bg-primary/10 p-2 rounded text-center">
+                        <span className="font-bold text-accent">1 Month: ₹{breed.prices.oneMonth}</span>
+                      </div>
+                    </div>
+                    <Link 
+                      to="/payment" 
+                      state={{ 
+                        breed: breed.name, 
+                        ageCategory: "1-day",
+                        price: breed.prices.oneDay 
+                      }}
+                    >
+                      <Button 
+                        className={`w-full text-sm ${breed.buttonClass} hover:opacity-90 transition-all duration-300 text-white shadow-warm hover:shadow-glow`}
+                        size="sm"
+                      >
+                        Order Now
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="text-center mt-6">
+              <p className="text-sm text-muted-foreground">← Slide to explore more breeds →</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Age-Based Categories Section */}
       <section className="py-20 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
