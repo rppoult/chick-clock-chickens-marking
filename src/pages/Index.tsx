@@ -25,6 +25,10 @@ import fancyChick from "@/assets/fancy-chick.jpg";
 import girirajaChick from "@/assets/giriraja-chick.jpg";
 import turkeyChick from "@/assets/turkey-chick.jpg";
 import duckChick from "@/assets/duck-chick.jpg";
+import chick1Day from "@/assets/chick-1day.jpg";
+import chick3Day from "@/assets/chick-3day.jpg";
+import chick7Day from "@/assets/chick-7day.jpg";
+import chick14Day from "@/assets/chick-14day.jpg";
 
 const Index = () => {
   const [medicines, setMedicines] = useState([]);
@@ -394,6 +398,80 @@ const Index = () => {
             <Button variant="golden" size="lg" className="text-lg px-8 py-6 shadow-warm hover:shadow-colorful transition-all duration-500 animate-slide-in-right hover-scale" style={{animationDelay: '1.4s'}}>
               📞 Call: 9994931708
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Farm Photos Gallery */}
+      <section className="py-20 px-6 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-4">
+              🏡 Our Farm Gallery
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Take a virtual tour of RP Poultry Farm - See our quality breeds and farming facilities
+            </p>
+          </div>
+
+          <div className="relative">
+            {/* Main sliding gallery */}
+            <div className="overflow-hidden rounded-2xl shadow-2xl bg-gradient-to-r from-accent/10 to-primary/10 p-6">
+              <div className="flex gap-6 overflow-x-auto scrollbar-hide pb-4" style={{scrollBehavior: 'smooth'}}>
+                {[
+                  { image: farmHero, title: "RP Poultry Farm", description: "Our beautiful farm facility in Errabaiyanahalli" },
+                  { image: chick1Day, title: "Day-Old Chicks", description: "Fresh 1-day old chicks ready for new homes" },
+                  { image: chick3Day, title: "3-Day Growth", description: "Healthy development in our controlled environment" },
+                  { image: chick7Day, title: "Week-Old Chicks", description: "Strong and active chicks after one week" },
+                  { image: chick14Day, title: "Two-Week Growth", description: "Remarkable growth and development" },
+                  { image: sonaliChick, title: "Sonali Breed", description: "Premium Sonali chickens in our farm" },
+                  { image: peruvidaiChick, title: "Peruvidai Cross", description: "High-quality crossbred chickens" },
+                  { image: kadaknathChick, title: "Kadaknath Special", description: "Famous black chicken breed" },
+                  { image: turkeyChick, title: "Turkey Section", description: "Our turkey breeding area" },
+                  { image: duckChick, title: "Duck Facility", description: "Duck breeding and care facility" }
+                ].map((photo, index) => (
+                  <div 
+                    key={`farm-photo-${index}`}
+                    className={`flex-none w-80 bg-card rounded-xl shadow-warm hover:shadow-colorful transition-all duration-700 hover-scale border-2 border-accent/20 animate-fade-in`}
+                    style={{animationDelay: `${index * 0.1}s`}}
+                  >
+                    <div className="relative overflow-hidden rounded-t-xl">
+                      <img 
+                        src={photo.image} 
+                        alt={photo.title}
+                        className="w-full h-64 object-cover transition-transform duration-700 hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500">
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <h3 className="text-white font-bold text-lg mb-1">{photo.title}</h3>
+                          <p className="text-white/90 text-sm">{photo.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <h3 className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent mb-2">
+                        {photo.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {photo.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Scroll indicator */}
+            <div className="text-center mt-8">
+              <div className="inline-flex items-center gap-2 bg-card px-6 py-3 rounded-full shadow-warm border border-accent/20">
+                <span className="text-sm text-muted-foreground">Slide to explore our farm</span>
+                <div className="flex gap-1">
+                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-accent/50 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                  <div className="w-2 h-2 bg-accent/30 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
