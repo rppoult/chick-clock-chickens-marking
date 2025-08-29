@@ -374,24 +374,24 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-background/85 to-background/50 gradient-animated"></div>
         </div>
         
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-6 bounce-in">
+        <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
           <div className="mb-6">
-            <h1 className="text-5xl md:text-7xl font-bold mb-3 bg-gradient-to-r from-primary via-accent-bright to-primary-glow bg-clip-text text-transparent animate-pulse">
+            <h1 className="text-5xl md:text-7xl font-bold mb-3 bg-gradient-to-r from-primary via-accent-bright to-primary-glow bg-clip-text text-transparent animate-fade-in">
               RP POULTRY FARM
             </h1>
-            <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-4 pulse-glow">
+            <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-4 animate-slide-in-right" style={{animationDelay: '0.3s'}}>
               Errabaiyanahalli, Tamil Nadu
             </p>
-            <div className="text-4xl mb-6 animate-bounce">🐣🐤🐥🐓🐔🦆🪿🦃</div>
+            <div className="text-4xl mb-6 animate-scale-in" style={{animationDelay: '0.6s'}}>🐣🐤🐥🐓🐔🦆🪿🦃</div>
           </div>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{animationDelay: '0.9s'}}>
             Premium quality poultry breeds with Tamil Nadu-wide delivery. Choose from our diverse selection of chickens, ducks, and turkeys.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="barn" size="lg" className="text-lg px-8 py-6 shadow-glow hover:shadow-colorful transition-all duration-500 pulse-glow">
+            <Button variant="barn" size="lg" className="text-lg px-8 py-6 shadow-glow hover:shadow-colorful transition-all duration-500 animate-slide-in-right hover-scale" style={{animationDelay: '1.2s'}}>
               📞 Call: 9500790276
             </Button>
-            <Button variant="golden" size="lg" className="text-lg px-8 py-6 shadow-warm hover:shadow-colorful transition-all duration-500 pulse-glow">
+            <Button variant="golden" size="lg" className="text-lg px-8 py-6 shadow-warm hover:shadow-colorful transition-all duration-500 animate-slide-in-right hover-scale" style={{animationDelay: '1.4s'}}>
               📞 Call: 9994931708
             </Button>
           </div>
@@ -422,9 +422,9 @@ const Index = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {poultryProducts.map((breed, index) => (
-              <Card key={`1day-${breed.id}`} className="hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-accent/5" style={{animationDelay: `${index * 0.1}s`}}>
+              <Card key={`1day-${breed.id}`} className={`hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 float-animation bg-gradient-to-br from-card via-card/95 to-accent/5 ${index % 2 === 0 ? 'animate-slide-in-right' : 'animate-fade-in'}`} style={{animationDelay: `${index * 0.2}s`}}>
                 {breed.popular && (
-                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
+                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold animate-scale-in" style={{animationDelay: `${index * 0.2 + 0.3}s`}}>
                     ⭐ Popular
                   </Badge>
                 )}
@@ -434,7 +434,7 @@ const Index = () => {
                     <img 
                       src={breed.image} 
                       alt={breed.name}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
                   </div>
                   <CardTitle className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center">
@@ -487,9 +487,9 @@ const Index = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {poultryProducts.map((breed, index) => (
-              <Card key={`1month-${breed.id}`} className="hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-accent/5" style={{animationDelay: `${index * 0.1}s`}}>
+              <Card key={`1month-${breed.id}`} className={`hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 float-animation bg-gradient-to-br from-card via-card/95 to-accent/5 ${index % 3 === 0 ? 'animate-slide-in-right' : index % 3 === 1 ? 'animate-fade-in' : 'animate-scale-in'}`} style={{animationDelay: `${index * 0.15}s`}}>
                 {breed.popular && (
-                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
+                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold animate-fade-in" style={{animationDelay: `${index * 0.15 + 0.4}s`}}>
                     ⭐ Popular
                   </Badge>
                 )}
@@ -499,7 +499,7 @@ const Index = () => {
                     <img 
                       src={breed.image} 
                       alt={breed.name}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
                   </div>
                   <CardTitle className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center">
@@ -552,9 +552,9 @@ const Index = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {poultryProducts.map((breed, index) => (
-              <Card key={`1.5month-${breed.id}`} className="hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-accent/5" style={{animationDelay: `${index * 0.1}s`}}>
+              <Card key={`1.5month-${breed.id}`} className={`hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 float-animation bg-gradient-to-br from-card via-card/95 to-accent/5 ${index % 4 === 0 ? 'animate-slide-in-right' : index % 4 === 1 ? 'animate-fade-in' : index % 4 === 2 ? 'animate-scale-in' : 'animate-slide-in-right'}`} style={{animationDelay: `${index * 0.12}s`}}>
                 {breed.popular && (
-                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
+                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold animate-scale-in pulse" style={{animationDelay: `${index * 0.12 + 0.5}s`}}>
                     ⭐ Popular
                   </Badge>
                 )}
@@ -564,7 +564,7 @@ const Index = () => {
                     <img 
                       src={breed.image} 
                       alt={breed.name}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
                   </div>
                   <CardTitle className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center">
@@ -617,9 +617,9 @@ const Index = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {poultryProducts.map((breed, index) => (
-              <Card key={`2month-${breed.id}`} className="hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 bounce-in float-animation bg-gradient-to-br from-card via-card/95 to-accent/5" style={{animationDelay: `${index * 0.1}s`}}>
+              <Card key={`2month-${breed.id}`} className={`hover:shadow-colorful transition-all duration-500 border-2 hover:border-accent-bright/70 float-animation bg-gradient-to-br from-card via-card/95 to-accent/5 ${index % 5 === 0 ? 'animate-slide-in-right' : index % 5 === 1 ? 'animate-fade-in' : index % 5 === 2 ? 'animate-scale-in' : index % 5 === 3 ? 'animate-slide-in-right' : 'animate-fade-in'}`} style={{animationDelay: `${index * 0.1}s`}}>
                 {breed.popular && (
-                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold">
+                  <Badge className="absolute -top-2 left-2 bg-gradient-rainbow z-10 shadow-glow text-xs text-white font-bold animate-scale-in pulse" style={{animationDelay: `${index * 0.1 + 0.6}s`}}>
                     ⭐ Popular
                   </Badge>
                 )}
@@ -629,7 +629,7 @@ const Index = () => {
                     <img 
                       src={breed.image} 
                       alt={breed.name}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
                   </div>
                   <CardTitle className="text-lg font-bold bg-gradient-to-r from-primary to-accent-bright bg-clip-text text-transparent text-center">
