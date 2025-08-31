@@ -655,8 +655,8 @@ const Index = () => {
                 <CardHeader className="pb-3 p-4">
                   <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
-                      src={breed.image} 
-                      alt={breed.name}
+                      src={chick1Day} 
+                      alt={`${breed.name} - 1 month old`}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
                   </div>
@@ -720,8 +720,8 @@ const Index = () => {
                 <CardHeader className="pb-3 p-4">
                   <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
-                      src={breed.image} 
-                      alt={breed.name}
+                      src={chick7Day} 
+                      alt={`${breed.name} - 1.5 month old`}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
                   </div>
@@ -785,8 +785,8 @@ const Index = () => {
                 <CardHeader className="pb-3 p-4">
                   <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
-                      src={breed.image} 
-                      alt={breed.name}
+                      src={chick14Day} 
+                      alt={`${breed.name} - 2 month old`}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
                   </div>
