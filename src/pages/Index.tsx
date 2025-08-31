@@ -12,7 +12,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Phone, Home, Info, Mail, ShoppingCart, Package, History } from "lucide-react";
+import { Menu, Phone, Home, Info, Mail, ShoppingCart, Package, History, Facebook, MessageCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import farmHero from "@/assets/farm-hero.jpg";
@@ -347,21 +347,29 @@ const Index = () => {
                     <span className="font-medium">Order Now</span>
                   </Link>
                   
-                  <div className="border-t pt-4 mt-4">
-                    <div className="space-y-2">
-                      <p className="text-sm font-medium text-foreground">Contact Info</p>
-                      <div className="space-y-1">
-                        <a href="tel:9500790276" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-                          <Phone className="w-4 h-4" />
-                          9500790276
-                        </a>
-                        <a href="tel:9994931708" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-                          <Phone className="w-4 h-4" />
-                          9994931708
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+          <div className="border-t pt-4 mt-4">
+            <div className="space-y-4">
+              <p className="text-sm font-medium text-foreground">Contact Info</p>
+              <div className="space-y-3">
+                <a href="tel:9500790276" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Phone className="w-4 h-4 text-primary" />
+                  9500790276
+                </a>
+                <a href="tel:9994931708" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Phone className="w-4 h-4 text-primary" />
+                  9994931708
+                </a>
+                <a href="https://wa.me/919500790276" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <MessageCircle className="w-4 h-4 text-green-600" />
+                  WhatsApp Chat
+                </a>
+                <a href="https://facebook.com/rppoultrytraders" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Facebook className="w-4 h-4 text-blue-600" />
+                  Follow on Facebook
+                </a>
+              </div>
+            </div>
+          </div>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -1140,10 +1148,20 @@ const Index = () => {
                     <span className="text-success mr-2 mt-1">✓</span>
                     Delivery will be processed after payment confirmation
                   </p>
-                  <p className="flex items-start">
-                    <span className="text-info mr-2 mt-1">📞</span>
-                    Call 9500790276 or 9994931708 for any payment queries
-                  </p>
+                  <div className="flex items-center justify-center gap-4 mt-4 pt-3 border-t border-accent/20">
+                    <a href="tel:9500790276" className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 px-3 py-2 rounded-lg transition-colors">
+                      <Phone className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-medium text-primary">Call Now</span>
+                    </a>
+                    <a href="https://wa.me/919500790276" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-green-600/10 hover:bg-green-600/20 px-3 py-2 rounded-lg transition-colors">
+                      <MessageCircle className="w-4 h-4 text-green-600" />
+                      <span className="text-sm font-medium text-green-600">WhatsApp</span>
+                    </a>
+                    <a href="https://facebook.com/rppoultrytraders" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-blue-600/10 hover:bg-blue-600/20 px-3 py-2 rounded-lg transition-colors">
+                      <Facebook className="w-4 h-4 text-blue-600" />
+                      <span className="text-sm font-medium text-blue-600">Facebook</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
