@@ -37,6 +37,68 @@ const Index = () => {
   const [medicines, setMedicines] = useState([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Function to get breed-specific image based on age
+  const getBreedImage = (breedName: string, ageCategory: string) => {
+    const breedImages = {
+      "Sonali": {
+        "1-day": sonaliChick,
+        "1-month": chick3Day,
+        "1.5-month": chick7Day,
+        "2-month": chick14Day
+      },
+      "Peruvidai Cross": {
+        "1-day": peruvidaiChick,
+        "1-month": chick7Day,
+        "1.5-month": chick14Day,
+        "2-month": peruvidaiChick
+      },
+      "Kadaknath": {
+        "1-day": kadaknathChick,
+        "1-month": chick1Day,
+        "1.5-month": chick7Day,
+        "2-month": kadaknathChick
+      },
+      "Guineafowl": {
+        "1-day": guineafowlChick,
+        "1-month": chick3Day,
+        "1.5-month": chick14Day,
+        "2-month": guineafowlChick
+      },
+      "Aseel Cross": {
+        "1-day": aseelChick,
+        "1-month": aseelYoungChicks,
+        "1.5-month": aseel14DayChicks,
+        "2-month": aseelMature
+      },
+      "Fancy": {
+        "1-day": fancyChick,
+        "1-month": chick1Day,
+        "1.5-month": chick3Day,
+        "2-month": fancyChick
+      },
+      "Giriraja": {
+        "1-day": girirajaChick,
+        "1-month": chick3Day,
+        "1.5-month": chick7Day,
+        "2-month": girirajaChick
+      },
+      "Turkey": {
+        "1-day": turkeyChick,
+        "1-month": chick7Day,
+        "1.5-month": chick14Day,
+        "2-month": turkeyChick
+      },
+      "Duck": {
+        "1-day": duckChick,
+        "1-month": chick1Day,
+        "1.5-month": chick7Day,
+        "2-month": duckChick
+      }
+    };
+    
+    return breedImages[breedName]?.[ageCategory] || chick1Day;
+  };
+
   useEffect(() => {
     fetchMedicines();
   }, []);
@@ -658,7 +720,7 @@ const Index = () => {
                 <CardHeader className="pb-3 p-4">
                   <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
-                      src={aseelYoungChicks} 
+                      src={getBreedImage(breed.name, "1-month")} 
                       alt={`${breed.name} - 1 month old`}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
@@ -723,7 +785,7 @@ const Index = () => {
                 <CardHeader className="pb-3 p-4">
                   <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
-                      src={aseel14DayChicks} 
+                      src={getBreedImage(breed.name, "1.5-month")} 
                       alt={`${breed.name} - 1.5 month old`}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
@@ -788,7 +850,7 @@ const Index = () => {
                 <CardHeader className="pb-3 p-4">
                   <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
-                      src={aseelMature} 
+                      src={getBreedImage(breed.name, "2-month")} 
                       alt={`${breed.name} - 2 month old`}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
