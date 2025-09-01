@@ -29,6 +29,9 @@ import chick1Day from "@/assets/chick-1day.jpg";
 import chick3Day from "@/assets/chick-3day.jpg";
 import chick7Day from "@/assets/chick-7day.jpg";
 import chick14Day from "@/assets/chick-14day.jpg";
+import aseelYoungChicks from "/lovable-uploads/29d8ff9b-3160-4b38-97e5-94a5ef37c3d9.png";
+import aseel14DayChicks from "/lovable-uploads/c23eb216-f78a-40bc-809f-059b4a1b2953.png";
+import aseelMature from "/lovable-uploads/c92e1175-fa30-49f1-9ab3-569f300b0bd0.png";
 
 const Index = () => {
   const [medicines, setMedicines] = useState([]);
@@ -655,7 +658,7 @@ const Index = () => {
                 <CardHeader className="pb-3 p-4">
                   <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
-                      src={chick1Day} 
+                      src={aseelYoungChicks} 
                       alt={`${breed.name} - 1 month old`}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
@@ -720,7 +723,7 @@ const Index = () => {
                 <CardHeader className="pb-3 p-4">
                   <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
-                      src={chick7Day} 
+                      src={aseel14DayChicks} 
                       alt={`${breed.name} - 1.5 month old`}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
@@ -785,7 +788,7 @@ const Index = () => {
                 <CardHeader className="pb-3 p-4">
                   <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-accent/10 ring-2 ring-accent-bright/30 shadow-warm">
                     <img 
-                      src={chick14Day} 
+                      src={aseelMature} 
                       alt={`${breed.name} - 2 month old`}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 hover-scale"
                     />
