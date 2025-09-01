@@ -42,26 +42,26 @@ const Index = () => {
     const breedImages = {
       "Sonali": {
         "1-day": sonaliChick,
-        "1-month": chick3Day,
-        "1.5-month": chick7Day,
-        "2-month": chick14Day
+        "1-month": sonaliChick,
+        "1.5-month": sonaliChick,
+        "2-month": sonaliChick
       },
       "Peruvidai Cross": {
         "1-day": peruvidaiChick,
-        "1-month": chick7Day,
-        "1.5-month": chick14Day,
+        "1-month": peruvidaiChick,
+        "1.5-month": peruvidaiChick,
         "2-month": peruvidaiChick
       },
       "Kadaknath": {
         "1-day": kadaknathChick,
-        "1-month": chick1Day,
-        "1.5-month": chick7Day,
+        "1-month": kadaknathChick,
+        "1.5-month": kadaknathChick,
         "2-month": kadaknathChick
       },
       "Guineafowl": {
         "1-day": guineafowlChick,
-        "1-month": chick3Day,
-        "1.5-month": chick14Day,
+        "1-month": guineafowlChick,
+        "1.5-month": guineafowlChick,
         "2-month": guineafowlChick
       },
       "Aseel Cross": {
@@ -72,26 +72,26 @@ const Index = () => {
       },
       "Fancy": {
         "1-day": fancyChick,
-        "1-month": chick1Day,
-        "1.5-month": chick3Day,
+        "1-month": fancyChick,
+        "1.5-month": fancyChick,
         "2-month": fancyChick
       },
       "Giriraja": {
         "1-day": girirajaChick,
-        "1-month": chick3Day,
-        "1.5-month": chick7Day,
+        "1-month": girirajaChick,
+        "1.5-month": girirajaChick,
         "2-month": girirajaChick
       },
       "Turkey": {
         "1-day": turkeyChick,
-        "1-month": chick7Day,
-        "1.5-month": chick14Day,
+        "1-month": turkeyChick,
+        "1.5-month": turkeyChick,
         "2-month": turkeyChick
       },
       "Duck": {
         "1-day": duckChick,
-        "1-month": chick1Day,
-        "1.5-month": chick7Day,
+        "1-month": duckChick,
+        "1.5-month": duckChick,
         "2-month": duckChick
       }
     };
