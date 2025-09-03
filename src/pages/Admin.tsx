@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { ProductForm } from "@/components/ProductForm";
 import { OrderDetailsModal } from "@/components/OrderDetailsModal";
 import { CategoryManager } from "@/components/CategoryManager";
+import { BreedImageManager } from "@/components/BreedImageManager";
 
 interface Order {
   id: string;
@@ -326,10 +327,11 @@ const Admin = () => {
 
         {/* Main Content */}
         <Tabs defaultValue="orders" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="orders">Orders Management</TabsTrigger>
             <TabsTrigger value="medicines">Product Inventory</TabsTrigger>
             <TabsTrigger value="categories">Categories</TabsTrigger>
+            <TabsTrigger value="images">Breed Images</TabsTrigger>
             <TabsTrigger value="customers">Customer Analytics</TabsTrigger>
           </TabsList>
 
@@ -536,6 +538,11 @@ const Admin = () => {
           {/* Categories Tab */}
           <TabsContent value="categories" className="space-y-6">
             <CategoryManager />
+          </TabsContent>
+
+          {/* Breed Images Tab */}
+          <TabsContent value="images" className="space-y-6">
+            <BreedImageManager />
           </TabsContent>
 
           {/* Customers Tab */}

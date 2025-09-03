@@ -38,8 +38,17 @@ const Index = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Function to get breed-specific image based on age
+  const [breedImages, setBreedImages] = useState({});
+
   const getBreedImage = (breedName: string, ageCategory: string) => {
-    const breedImages = {
+    // Check database first, fallback to default images
+    const databaseImage = breedImages[`${breedName}-${ageCategory}`];
+    if (databaseImage) {
+      return databaseImage;
+    }
+
+    // Fallback to hardcoded images
+    const fallbackImages = {
       "Sonali": {
         "1-day": sonaliChick,
         "1-month": sonaliChick,
@@ -96,11 +105,32 @@ const Index = () => {
       }
     };
     
-    return breedImages[breedName]?.[ageCategory] || chick1Day;
+    return fallbackImages[breedName]?.[ageCategory] || chick1Day;
+  };
+
+  const fetchBreedImages = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('breed_images')
+        .select('*');
+
+      if (error) throw error;
+      
+      // Convert to key-value pairs for easy lookup
+      const imageMap = {};
+      data?.forEach(item => {
+        imageMap[`${item.breed_name}-${item.age_category}`] = item.image_url;
+      });
+      
+      setBreedImages(imageMap);
+    } catch (error) {
+      console.error('Error fetching breed images:', error);
+    }
   };
 
   useEffect(() => {
     fetchMedicines();
+    fetchBreedImages();
   }, []);
 
   const fetchMedicines = async () => {
