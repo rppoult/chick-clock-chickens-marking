@@ -36,9 +36,7 @@ import aseelMature from "/lovable-uploads/c92e1175-fa30-49f1-9ab3-569f300b0bd0.p
 const Index = () => {
   const [medicines, setMedicines] = useState([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Function to get breed-specific image based on age
-  const [breedImages, setBreedImages] = useState({});
+  const [breedImages, setBreedImages] = useState<{[key: string]: string}>({});
 
   const getBreedImage = (breedName: string, ageCategory: string) => {
     // Check database first, fallback to default images
@@ -117,9 +115,10 @@ const Index = () => {
       if (error) throw error;
       
       // Convert to key-value pairs for easy lookup
-      const imageMap = {};
-      data?.forEach(item => {
-        imageMap[`${item.breed_name}-${item.age_category}`] = item.image_url;
+      const imageMap: {[key: string]: string} = {};
+      data?.forEach(image => {
+        const key = `${image.breed_name}-${image.age_category}`;
+        imageMap[key] = image.image_url;
       });
       
       setBreedImages(imageMap);

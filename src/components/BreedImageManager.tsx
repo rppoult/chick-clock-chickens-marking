@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Edit, Upload, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, Edit, Trash2, Eye } from "lucide-react";
-import { ProductImageUpload } from "./ProductImageUpload";
+import { ProductImageUpload } from "@/components/ProductImageUpload";
 
 interface BreedImage {
   id: string;
@@ -19,7 +20,7 @@ interface BreedImage {
   updated_at: string;
 }
 
-const breeds = [
+const BREEDS = [
   "Sonali",
   "Peruvidai Cross", 
   "Kadaknath",
@@ -31,16 +32,22 @@ const breeds = [
   "Duck"
 ];
 
-const ageCategories = ["1-day", "1-month", "1.5-month", "2-month"];
+const AGE_CATEGORIES = [
+  "1-day",
+  "1-month", 
+  "1.5-month",
+  "2-month"
+];
 
 export const BreedImageManager = () => {
   const [breedImages, setBreedImages] = useState<BreedImage[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showAddDialog, setShowAddDialog] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const [editingImage, setEditingImage] = useState<BreedImage | null>(null);
   const [selectedBreed, setSelectedBreed] = useState("");
   const [selectedAge, setSelectedAge] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -52,8 +59,7 @@ export const BreedImageManager = () => {
       const { data, error } = await supabase
         .from('breed_images')
         .select('*')
-        .order('breed_name')
-        .order('age_category');
+        .order('breed_name');
 
       if (error) throw error;
       setBreedImages(data || []);
@@ -69,15 +75,13 @@ export const BreedImageManager = () => {
     }
   };
 
-  const handleImageUpload = (url: string) => {
-    setImageUrl(url);
-  };
-
-  const saveBreedImage = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
     if (!selectedBreed || !selectedAge || !imageUrl) {
       toast({
         title: "Error",
-        description: "Please fill all fields and upload an image",
+        description: "Please fill in all fields",
         variant: "destructive",
       });
       return;
@@ -88,10 +92,10 @@ export const BreedImageManager = () => {
         // Update existing image
         const { error } = await supabase
           .from('breed_images')
-          .update({
+          .update({ 
             breed_name: selectedBreed,
             age_category: selectedAge,
-            image_url: imageUrl
+            image_url: imageUrl 
           })
           .eq('id', editingImage.id);
 
@@ -102,13 +106,13 @@ export const BreedImageManager = () => {
           description: "Breed image updated successfully",
         });
       } else {
-        // Insert new image (will update if combination exists due to UNIQUE constraint)
+        // Insert new image
         const { error } = await supabase
           .from('breed_images')
-          .upsert({
+          .upsert({ 
             breed_name: selectedBreed,
             age_category: selectedAge,
-            image_url: imageUrl
+            image_url: imageUrl 
           }, {
             onConflict: 'breed_name,age_category'
           });
@@ -121,8 +125,9 @@ export const BreedImageManager = () => {
         });
       }
 
-      resetForm();
       fetchBreedImages();
+      resetForm();
+      setShowDialog(false);
     } catch (error) {
       console.error('Error saving breed image:', error);
       toast({
@@ -144,7 +149,7 @@ export const BreedImageManager = () => {
 
       if (error) throw error;
 
-      setBreedImages(prev => prev.filter(img => img.id !== id));
+      fetchBreedImages();
       toast({
         title: "Success",
         description: "Breed image deleted successfully",
@@ -164,141 +169,180 @@ export const BreedImageManager = () => {
     setSelectedAge("");
     setImageUrl("");
     setEditingImage(null);
-    setShowAddDialog(false);
   };
 
-  const startEdit = (image: BreedImage) => {
+  const openEditDialog = (image: BreedImage) => {
+    setEditingImage(image);
     setSelectedBreed(image.breed_name);
     setSelectedAge(image.age_category);
     setImageUrl(image.image_url);
-    setEditingImage(image);
-    setShowAddDialog(true);
+    setShowDialog(true);
   };
 
+  const openAddDialog = () => {
+    resetForm();
+    setShowDialog(true);
+  };
+
+  const filteredImages = breedImages.filter(image =>
+    image.breed_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    image.age_category.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   if (loading) {
-    return <div>Loading breed images...</div>;
+    return (
+      <div className="text-center py-8">
+        <div className="text-lg">Loading breed images...</div>
+      </div>
+    );
   }
 
   return (
     <Card>
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle className="text-xl text-primary">Breed Images Management</CardTitle>
-          <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
+          <div>
+            <CardTitle className="text-xl text-primary">Breed Image Management</CardTitle>
+            <CardDescription>Manage images for different breeds and age categories</CardDescription>
+          </div>
+          <Dialog open={showDialog} onOpenChange={setShowDialog}>
             <DialogTrigger asChild>
-              <Button className="flex items-center gap-2" onClick={() => resetForm()}>
+              <Button onClick={openAddDialog} className="flex items-center gap-2">
                 <Upload className="h-4 w-4" />
-                Add/Update Image
+                Add Breed Image
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-md">
+            <DialogContent className="max-w-2xl">
               <DialogHeader>
                 <DialogTitle>
-                  {editingImage ? 'Edit Breed Image' : 'Add Breed Image'}
+                  {editingImage ? 'Edit Breed Image' : 'Add New Breed Image'}
                 </DialogTitle>
               </DialogHeader>
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="breed">Breed</Label>
-                  <Select value={selectedBreed} onValueChange={setSelectedBreed}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select breed" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {breeds.map((breed) => (
-                        <SelectItem key={breed} value={breed}>
-                          {breed}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="breed">Breed</Label>
+                    <Select value={selectedBreed} onValueChange={setSelectedBreed}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select breed" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {BREEDS.map(breed => (
+                          <SelectItem key={breed} value={breed}>
+                            {breed}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="age">Age Category</Label>
+                    <Select value={selectedAge} onValueChange={setSelectedAge}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select age" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {AGE_CATEGORIES.map(age => (
+                          <SelectItem key={age} value={age}>
+                            {age}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="age">Age Category</Label>
-                  <Select value={selectedAge} onValueChange={setSelectedAge}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select age category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {ageCategories.map((age) => (
-                        <SelectItem key={age} value={age}>
-                          {age}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label>Image Upload</Label>
-                  <ProductImageUpload 
-                    onImageChange={handleImageUpload}
+                <div className="space-y-2">
+                  <Label>Upload Image</Label>
+                  <ProductImageUpload
+                    onImageChange={(url) => setImageUrl(url || "")}
                     currentImageUrl={imageUrl}
                   />
                 </div>
 
-                <div className="flex gap-2 pt-4">
-                  <Button onClick={saveBreedImage} className="flex-1">
-                    {editingImage ? 'Update' : 'Save'}
-                  </Button>
-                  <Button variant="outline" onClick={resetForm} className="flex-1">
+                {imageUrl && (
+                  <div className="space-y-2">
+                    <Label>Current Image URL</Label>
+                    <Input 
+                      value={imageUrl} 
+                      onChange={(e) => setImageUrl(e.target.value)}
+                      placeholder="Image URL"
+                    />
+                  </div>
+                )}
+
+                <div className="flex justify-end gap-2">
+                  <Button type="button" variant="outline" onClick={() => setShowDialog(false)}>
                     Cancel
                   </Button>
+                  <Button type="submit">
+                    {editingImage ? 'Update' : 'Save'} Image
+                  </Button>
                 </div>
-              </div>
+              </form>
             </DialogContent>
           </Dialog>
         </div>
       </CardHeader>
+      
       <CardContent>
+        <div className="mb-4">
+          <Input
+            placeholder="Search by breed or age..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="max-w-sm"
+          />
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {breedImages.map((image) => (
+          {filteredImages.map((image) => (
             <Card key={image.id} className="overflow-hidden">
-              <div className="aspect-square relative overflow-hidden">
+              <div className="aspect-square relative">
                 <img
                   src={image.image_url}
                   alt={`${image.breed_name} - ${image.age_category}`}
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/placeholder.svg';
+                  }}
                 />
               </div>
-              <CardContent className="p-3">
-                <h4 className="font-semibold text-sm">{image.breed_name}</h4>
-                <p className="text-xs text-muted-foreground">{image.age_category}</p>
-                <div className="flex gap-1 mt-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => startEdit(image)}
-                    className="flex-1"
-                  >
-                    <Edit className="h-3 w-3" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => window.open(image.image_url, '_blank')}
-                    className="flex-1"
-                  >
-                    <Eye className="h-3 w-3" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => deleteBreedImage(image.id)}
-                    className="flex-1 text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="h-3 w-3" />
-                  </Button>
+              <CardContent className="p-4">
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-foreground">{image.breed_name}</h3>
+                  <Badge variant="secondary">{image.age_category}</Badge>
+                  <div className="flex gap-2 mt-3">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => openEditDialog(image)}
+                      className="flex-1"
+                    >
+                      <Edit className="h-3 w-3 mr-1" />
+                      Edit
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => deleteBreedImage(image.id)}
+                      className="flex-1"
+                    >
+                      <Trash2 className="h-3 w-3 mr-1" />
+                      Delete
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
-        
-        {breedImages.length === 0 && (
+
+        {filteredImages.length === 0 && (
           <div className="text-center py-8 text-muted-foreground">
-            No breed images found. Add some images to get started.
+            No breed images found. Click "Add Breed Image" to get started.
           </div>
         )}
       </CardContent>
