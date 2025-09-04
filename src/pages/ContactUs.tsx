@@ -43,11 +43,11 @@ const ContactUs = () => {
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-lg font-medium">+91 9500790276</span>
+                  <a href="tel:+919500790276" className="text-lg font-medium hover:text-primary transition-colors">+91 9500790276</a>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-lg font-medium">+91 9994931708</span>
+                  <a href="tel:+919994931708" className="text-lg font-medium hover:text-primary transition-colors">+91 9994931708</a>
                 </div>
                 <p className="text-sm text-gray-600 mt-2">Available for orders and inquiries</p>
               </CardContent>

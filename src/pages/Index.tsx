@@ -494,11 +494,11 @@ const Index = () => {
             Premium quality poultry breeds with Tamil Nadu-wide delivery. Choose from our diverse selection of chickens, ducks, and turkeys.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="barn" size="lg" className="text-lg px-8 py-6 shadow-glow hover:shadow-colorful transition-all duration-500 animate-slide-in-right hover-scale" style={{animationDelay: '1.2s'}}>
-              📞 Call: 9500790276
+            <Button variant="barn" size="lg" className="text-lg px-8 py-6 shadow-glow hover:shadow-colorful transition-all duration-500 animate-slide-in-right hover-scale" style={{animationDelay: '1.2s'}} asChild>
+              <a href="tel:+919500790276">📞 Call: 9500790276</a>
             </Button>
-            <Button variant="golden" size="lg" className="text-lg px-8 py-6 shadow-warm hover:shadow-colorful transition-all duration-500 animate-slide-in-right hover-scale" style={{animationDelay: '1.4s'}}>
-              📞 Call: 9994931708
+            <Button variant="golden" size="lg" className="text-lg px-8 py-6 shadow-warm hover:shadow-colorful transition-all duration-500 animate-slide-in-right hover-scale" style={{animationDelay: '1.4s'}} asChild>
+              <a href="tel:+919994931708">📞 Call: 9994931708</a>
             </Button>
           </div>
         </div>
@@ -1075,8 +1075,8 @@ const Index = () => {
                 <span className="text-2xl text-primary-foreground">📞</span>
               </div>
               <h4 className="text-lg font-semibold text-foreground mb-2">Call Us</h4>
-              <p className="text-muted-foreground text-sm">9500790276</p>
-              <p className="text-muted-foreground text-sm">9994931708</p>
+              <a href="tel:+919500790276" className="text-muted-foreground text-sm hover:text-primary transition-colors">9500790276</a>
+              <a href="tel:+919994931708" className="text-muted-foreground text-sm hover:text-primary transition-colors">9994931708</a>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-golden rounded-full mx-auto mb-4 flex items-center justify-center">
@@ -1140,11 +1140,11 @@ const Index = () => {
             Contact RP Poultry Farm for premium quality birds delivered across Tamil Nadu. All birds are healthy, vaccinated, and ready to thrive.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center mb-8">
-            <Button variant="golden" size="lg" className="text-lg px-6 py-4">
-              📞 9500790276
+            <Button variant="golden" size="lg" className="text-lg px-6 py-4" asChild>
+              <a href="tel:+919500790276">📞 9500790276</a>
             </Button>
-            <Button variant="golden" size="lg" className="text-lg px-6 py-4">
-              📞 9994931708
+            <Button variant="golden" size="lg" className="text-lg px-6 py-4" asChild>
+              <a href="tel:+919994931708">📞 9994931708</a>
             </Button>
             <Button variant="outline" size="lg" className="text-lg px-6 py-4 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
               🌐 Website
