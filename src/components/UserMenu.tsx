@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { User, LogOut, History } from "lucide-react";
+import { User, LogOut, History, Shield } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export const UserMenu = () => {
@@ -26,12 +26,20 @@ export const UserMenu = () => {
 
   if (!user) {
     return (
-      <Link to="/auth">
-        <Button variant="outline" className="flex items-center gap-2">
-          <User className="w-4 h-4" />
-          Sign In
-        </Button>
-      </Link>
+      <div className="flex items-center gap-2">
+        <Link to="/auth">
+          <Button variant="outline" className="flex items-center gap-2">
+            <User className="w-4 h-4" />
+            Sign In
+          </Button>
+        </Link>
+        <Link to="/auth">
+          <Button variant="default" className="flex items-center gap-2">
+            <Shield className="w-4 h-4" />
+            Admin Login
+          </Button>
+        </Link>
+      </div>
     );
   }
 
