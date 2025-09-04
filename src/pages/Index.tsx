@@ -12,7 +12,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Phone, Home, Info, Mail, ShoppingCart, Package, History, Facebook, MessageCircle } from "lucide-react";
+import { Menu, Phone, Home, Info, Mail, ShoppingCart, Package, History, Facebook, MessageCircle, User, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import farmHero from "@/assets/farm-hero.jpg";
@@ -428,8 +428,17 @@ const Index = () => {
                     className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-accent transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Menu className="w-5 h-5 text-primary" />
+                    <User className="w-5 h-5 text-primary" />
                     <span className="font-medium">Account</span>
+                  </Link>
+                  
+                  <Link 
+                    to="/auth" 
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Shield className="w-5 h-5" />
+                    <span className="font-medium">Admin Login</span>
                   </Link>
                   
                   <Link 
