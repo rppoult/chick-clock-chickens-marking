@@ -1149,12 +1149,18 @@ const Index = () => {
             Contact RP Poultry Farm for premium quality birds delivered across Tamil Nadu. All birds are healthy, vaccinated, and ready to thrive.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center mb-8">
-            <Button variant="golden" size="lg" className="text-lg px-6 py-4" asChild>
-              <a href="tel:+919500790276">📞 9500790276</a>
-            </Button>
-            <Button variant="golden" size="lg" className="text-lg px-6 py-4" asChild>
-              <a href="tel:+919994931708">📞 9994931708</a>
-            </Button>
+            <button 
+              onClick={() => window.open('tel:+919500790276', '_self')}
+              className="bg-gradient-golden text-white text-lg px-6 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
+              📞 9500790276
+            </button>
+            <button 
+              onClick={() => window.open('tel:+919994931708', '_self')}
+              className="bg-gradient-golden text-white text-lg px-6 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
+              📞 9994931708
+            </button>
             <Button variant="outline" size="lg" className="text-lg px-6 py-4 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
               🌐 Website
             </Button>
