@@ -37,6 +37,28 @@ const Payment = () => {
     price: orderData.price || 50
   });
 
+  // Price mapping for different breeds and age categories
+  const breedPrices = {
+    "Aseel": { "1-day": 40, "1-month": 90, "1.5-month": 150, "2-month": 180 },
+    "Giriraja": { "1-day": 30, "1-month": 90, "1.5-month": 150, "2-month": 180 },
+    "Sonali": { "1-day": 40, "1-month": 100, "1.5-month": 150, "2-month": 180 },
+    "Kadaknath": { "1-day": 45, "1-month": 100, "1.5-month": 150, "2-month": 180 },
+    "Peruvidai": { "1-day": 50, "1-month": 100, "1.5-month": 160, "2-month": 190 },
+    "Duck": { "1-day": 60, "1-month": 120, "1.5-month": 180, "2-month": 210 },
+    "Turkey": { "1-day": 100, "1-month": 230, "1.5-month": 300, "2-month": 330 },
+    "Guineafowl": { "1-day": 80, "1-month": 150, "1.5-month": 230, "2-month": 260 },
+    "Fancy": { "1-day": 60, "1-month": 130, "1.5-month": 200, "2-month": 230 }
+  };
+
+  // Function to update price when breed or age category changes
+  const updatePrice = (breed: string, ageCategory: string) => {
+    if (breed && breedPrices[breed as keyof typeof breedPrices]) {
+      const price = breedPrices[breed as keyof typeof breedPrices][ageCategory as keyof typeof breedPrices[keyof typeof breedPrices]];
+      return price || 50;
+    }
+    return 50;
+  };
+
   const calculateTotal = () => {
     return orderDetails.quantity * orderDetails.price;
   };
@@ -266,12 +288,19 @@ const Payment = () => {
                 <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Breed *</label>
-                  <select 
-                    value={orderDetails.breed}
-                    onChange={(e) => setOrderDetails({...orderDetails, breed: e.target.value})}
-                    className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
-                    required
-                  >
+                   <select 
+                     value={orderDetails.breed}
+                     onChange={(e) => {
+                       const newBreed = e.target.value;
+                       setOrderDetails({
+                         ...orderDetails, 
+                         breed: newBreed,
+                         price: updatePrice(newBreed, orderDetails.ageCategory)
+                       });
+                     }}
+                     className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
+                     required
+                   >
                     <option value="">Select breed</option>
                     {breeds.map((breed) => (
                       <option key={breed} value={breed}>{breed}</option>
@@ -281,11 +310,18 @@ const Payment = () => {
                   
                   <div>
                     <label className="block text-sm font-medium mb-2">Age Category</label>
-                    <select 
-                      value={orderDetails.ageCategory}
-                      onChange={(e) => setOrderDetails({...orderDetails, ageCategory: e.target.value})}
-                      className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
-                    >
+                     <select 
+                       value={orderDetails.ageCategory}
+                       onChange={(e) => {
+                         const newAgeCategory = e.target.value;
+                         setOrderDetails({
+                           ...orderDetails, 
+                           ageCategory: newAgeCategory,
+                           price: updatePrice(orderDetails.breed, newAgeCategory)
+                         });
+                       }}
+                       className="w-full p-3 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring"
+                     >
                       <option value="1-day">1 Day Old</option>
                       <option value="1-month">1 Month Old</option>
                       <option value="1.5-month">1.5 Month Old</option>
