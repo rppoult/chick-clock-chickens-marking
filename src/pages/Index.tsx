@@ -486,20 +486,20 @@ const Index = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${farmHero})` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-green-900/40 to-green-700/30 gradient-animated"></div>
+          <div className="absolute inset-0 bg-white/95"></div>
         </div>
         
         <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
           <div className="mb-6">
-            <h1 className="text-5xl md:text-7xl font-bold mb-3 bg-gradient-to-r from-primary via-accent-bright to-primary-glow bg-clip-text text-transparent animate-fade-in">
+            <h1 className="text-5xl md:text-7xl font-bold mb-3 bg-gradient-to-r from-green-600 via-green-500 to-green-700 bg-clip-text text-transparent animate-fade-in drop-shadow-lg">
               RP POULTRY FARM
             </h1>
-            <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-accent to-accent-bright bg-clip-text text-transparent mb-4 animate-slide-in-right" style={{animationDelay: '0.3s'}}>
+            <p className="text-3xl md:text-4xl font-bold text-green-600 mb-4 animate-slide-in-right" style={{animationDelay: '0.3s'}}>
               Errabaiyanahalli, Tamil Nadu
             </p>
             <div className="text-4xl mb-6 animate-scale-in" style={{animationDelay: '0.6s'}}>🐣🐤🐥🐓🐔🦆🪿🦃</div>
           </div>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{animationDelay: '0.9s'}}>
+          <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto leading-relaxed animate-fade-in font-medium" style={{animationDelay: '0.9s'}}>
             Premium quality poultry breeds with Tamil Nadu-wide delivery. Choose from our diverse selection of chickens, ducks, and turkeys.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
