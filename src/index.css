@@ -59,7 +59,7 @@ All colors MUST be HSL.
     --shadow-colorful: 0 10px 40px -10px hsl(340 100% 70% / 0.3);
     
     /* Animated gradients */
-    --gradient-animated: linear-gradient(-45deg, hsl(340 100% 70%), hsl(280 100% 70%), hsl(220 100% 70%), hsl(200 100% 70%));
+    --gradient-animated: linear-gradient(-45deg, hsl(120 60% 50%), hsl(110 70% 45%), hsl(130 65% 55%), hsl(115 75% 48%));
     
     /* Border colors */
     --border-bright: 35 100% 60%;
@@ -180,10 +180,10 @@ All colors MUST be HSL.
 
 @keyframes pulseGlow {
   0% {
-    box-shadow: 0 0 20px hsl(var(--primary-glow) / 0.3);
+    box-shadow: 0 0 20px hsl(120 60% 50% / 0.3);
   }
   100% {
-    box-shadow: 0 0 40px hsl(var(--primary-glow) / 0.6);
+    box-shadow: 0 0 40px hsl(120 60% 50% / 0.6);
   }
 }
 
