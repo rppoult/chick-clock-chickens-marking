@@ -486,7 +486,7 @@ const Index = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${farmHero})` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-background/85 to-background/50 gradient-animated"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-green-900/40 to-green-700/30 gradient-animated"></div>
         </div>
         
         <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
