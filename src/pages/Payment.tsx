@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -26,16 +26,6 @@ const Payment = () => {
     "Guineafowl",
     "Fancy"
   ]);
-  const [orderDetails, setOrderDetails] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    quantity: 50,
-    breed: orderData.breed || "",
-    ageCategory: orderData.ageCategory || "1-day",
-    price: orderData.price || 50
-  });
 
   // Price mapping for different breeds and age categories
   const breedPrices = {
@@ -58,6 +48,30 @@ const Payment = () => {
     }
     return 50;
   };
+
+  const [orderDetails, setOrderDetails] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+    quantity: 50,
+    breed: orderData.breed || "",
+    ageCategory: orderData.ageCategory || "1-day",
+    price: updatePrice(orderData.breed || "", orderData.ageCategory || "1-day")
+  });
+
+  // Initialize price correctly when component mounts or orderData changes
+  useEffect(() => {
+    if (orderData.breed && orderData.ageCategory) {
+      const correctPrice = updatePrice(orderData.breed, orderData.ageCategory);
+      setOrderDetails(prev => ({
+        ...prev,
+        breed: orderData.breed,
+        ageCategory: orderData.ageCategory,
+        price: correctPrice
+      }));
+    }
+  }, [orderData.breed, orderData.ageCategory]);
 
   const calculateTotal = () => {
     return orderDetails.quantity * orderDetails.price;
