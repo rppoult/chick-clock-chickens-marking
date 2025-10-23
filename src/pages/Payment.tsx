@@ -393,13 +393,16 @@ const Payment = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div 
-                  className="p-4 border rounded-lg opacity-50 cursor-not-allowed bg-muted/30"
+                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                    selectedPayment === 'cod' ? 'border-primary bg-primary/5' : 'border-border'
+                  }`}
+                  onClick={() => setSelectedPayment('cod')}
                 >
                   <div className="flex items-center gap-3">
-                    <Truck className="h-5 w-5 text-muted-foreground" />
+                    <Truck className="h-5 w-5 text-primary" />
                     <div>
-                      <h3 className="font-semibold text-muted-foreground">Cash on Delivery</h3>
-                      <p className="text-sm text-muted-foreground">Currently unavailable</p>
+                      <h3 className="font-semibold">Cash on Delivery</h3>
+                      <p className="text-sm text-muted-foreground">Pay when you receive your order</p>
                     </div>
                   </div>
                 </div>
